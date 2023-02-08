@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+const matModules = [
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatButtonModule,
+];
+const ngModules = [CommonModule];
+
+@NgModule({
+  declarations: [SignInComponent],
+  imports: [...ngModules, ...matModules],
+  exports: [SignInComponent],
+})
+export class SignInAndSignUpModule {}

@@ -1,0 +1,10 @@
+<div
+  class="app-splash-screen bg-white flex flex-col items-center justify-center h-screen"
+  [ngStyle]="{ display: showSplash ? 'flex' : 'none' }"
+  *ngIf="showSplash"
+>
+  <img src="../../assets/logo.svg" alt="Logo Voll Med" />
+  <div class="py-12">
+    <mat-spinner diameter="60"></mat-spinner>
+  </div>
+</div>
