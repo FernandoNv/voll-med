@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="app-home">
+  <div class="logo-area">
+    <img src="../../assets/logo-home.svg" alt="Logo da voll med" />
+    <h3>Gerenciando sua clínica</h3>
+  </div>
+  <div class="content-area">
+    <h2>Escolha qual seção deseja iniciar:</h2>
+    <div class="options">
+      <div
+        class="option"
+        *ngFor="let option of options"
+        (click)="optionClicked(option)"
+      >
+        <fa-icon
+          [styles]="{
+            stroke: 'white',
+            color: '#0b3b60',
+            'stroke-width': '18px'
+          }"
+          [icon]="option.icon"
+          size="3x"
+        ></fa-icon>
+        <p>{{ option.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

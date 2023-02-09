@@ -9,13 +9,35 @@ import { SignInComponent } from './sign-in-and-sign-up/sign-in/sign-in.component
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    canMatch: [AuthenticationGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home',
+      },
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
+      {
+        path: 'patients',
+        loadChildren: () =>
+          import('./patients/patients.module').then((m) => m.PatientsModule),
+      },
+      {
+        path: 'doctors',
+        loadChildren: () =>
+          import('./doctors/doctors.module').then((m) => m.DoctorsModule),
+      },
+      {
+        path: 'appointments',
+        loadChildren: () =>
+          import('./appointments/appointments.module').then(
+            (m) => m.AppointmentsModule
+          ),
+      },
+    ],
+    canActivateChild: [AuthenticationGuard],
   },
   {
     path: 'sign-in',
