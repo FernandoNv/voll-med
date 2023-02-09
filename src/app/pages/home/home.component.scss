@@ -5,7 +5,7 @@
 $primary-color: #0b3b60;
 
 .app-home {
-  @apply container mx-auto px-9 flex flex-col justify-around h-screen;
+  @apply px-9 flex flex-col justify-around h-full;
 
   .logo-area {
     @apply py-2 h-1/6 flex flex-col justify-end;

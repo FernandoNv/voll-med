@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
   public ngOnInit(): void {
     this.loginFormGroup = this.formBuilder.group({
       usernameFormControl: ['', [Validators.required, Validators.email]],
-      passwordFormControl: ['', [Validators.required]],
+      passwordFormControl: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -39,8 +39,8 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error: (error) => {
+        this.wrongPassword = true;
         console.log('Senha inválida');
-        this.wrongPassword = !this.wrongPassword;
       },
     });
   }

@@ -40,7 +40,7 @@ export class AuthenticationGuard implements CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(childRoute, state);
+    // console.log(childRoute, state);
     if (this.userService.isSignedIn()) {
       return true;
     }

@@ -23,7 +23,7 @@ export class UserService {
     }
     try {
       const jwtDecoded = jwtDecode(token) as any;
-      console.log(jwtDecoded);
+      // console.log(jwtDecoded);
       console.log(new Date(jwtDecoded.exp * 1000));
       if (Date.now() > jwtDecoded.exp * 1000) {
         console.log('Token expirado');
