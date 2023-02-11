@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivationStart, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivationStart,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from 'src/app/auth/user.service';
 import { Location } from '@angular/common';
@@ -30,6 +35,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private location: Location
   ) {}
@@ -42,23 +48,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (data instanceof NavigationEnd) {
           const url = data.urlAfterRedirects.slice(1);
           this.showBackButton = !url.startsWith('home');
-          if (url.startsWith('home')) {
-            this.title = '';
-          }
-          if (url.startsWith('patients')) {
-            this.title = 'Paciêntes';
-          }
-
-          if (url.startsWith('doctors')) {
-            this.title = 'Médicos';
-          }
-
-          if (url.startsWith('appointments')) {
-            this.title = 'Consultas';
-          }
         }
         if (data instanceof ActivationStart) {
-          // console.log({ ActivationStart: data });
+          const newTitle = data.snapshot.routeConfig?.title;
+          // console.log({ newTitle });
+          // prettier-ignore
+          this.title = newTitle ? (newTitle as string) : this.title;
+          this.title = this.title !== 'Início' ? this.title : '';
           this.showHeader = data.snapshot.data['showHeader'];
         }
       });
