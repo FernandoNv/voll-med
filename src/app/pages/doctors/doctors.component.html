@@ -1,1 +1,10 @@
-<p>doctors works!</p>
+<div class="app-doctors">
+  <div class="spinner-area" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+  <span *ngIf="!isLoading">
+    <div *ngIf="items$ | async as items">
+      <app-list-expansion-panel [items]="items"> </app-list-expansion-panel>
+    </div>
+  </span>
+</div>

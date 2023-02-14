@@ -1,0 +1,23 @@
+<div class="app-list-expansion-panel">
+  <mat-list *ngFor="let item of items" class="list">
+    <mat-list-item class="list-item">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ item.title }} </mat-panel-title>
+            <mat-panel-description>
+              {{ item.description }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p class="item-content" *ngFor="let item of item.content">
+            {{ item }}
+          </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
