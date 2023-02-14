@@ -1,23 +1,19 @@
-<div class="app-list-expansion-panel">
-  <mat-list *ngFor="let item of items" class="list">
-    <mat-list-item class="list-item">
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title> {{ item.title }} </mat-panel-title>
-            <mat-panel-description>
-              {{ item.description }}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p class="item-content" *ngFor="let item of item.content">
-            {{ item }}
-          </p>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-  </mat-list>
+<div class="app-list-expansion-panel-area">
+  <div class="list-items" *ngFor="let listItems of listItemsExpansionPanel">
+    <div class="title-list-area">
+      <h3 class="title-list">{{ listItems.title }}</h3>
+      <img
+        src="../.././../assets/logo-list.svg"
+        alt="Logo da med voll utilizado para estilizar o titulo da lista de medicos"
+      />
+    </div>
+    <!-- prettier-ignore -->
+    <div class="list-items-area list">
+      <app-item-expansion-panel 
+        [items]="listItems.items"
+        (edit-button-clicked)="onEditButtonClicked($event)"
+        (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
+      ></app-item-expansion-panel>
+    </div>
+  </div>
 </div>

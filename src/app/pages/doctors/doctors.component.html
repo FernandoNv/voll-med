@@ -4,7 +4,11 @@
   </div>
   <span *ngIf="!isLoading">
     <div *ngIf="items$ | async as items">
-      <app-list-expansion-panel [items]="items"> </app-list-expansion-panel>
+      <app-list-expansion-panel
+        [items]="items"
+        (edit-button-clicked)="onEditButtonClicked($event)"
+        (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
+      ></app-list-expansion-panel>
     </div>
   </span>
 </div>

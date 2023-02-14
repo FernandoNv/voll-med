@@ -1,0 +1,38 @@
+<div class="app-item-expansion-panel">
+  <mat-list class="list" *ngFor="let item of items">
+    <mat-list-item class="list-item">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ item.title }} </mat-panel-title>
+            <mat-panel-description>
+              {{ item.description }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p class="item-content" *ngFor="let item of item.content">
+            {{ item }}
+          </p>
+          <div class="actions-area">
+            <button
+              mat-stroked-button
+              color="minha-cor"
+              (click)="onEditButtonClicked(item)"
+            >
+              Editar
+            </button>
+            <button
+              mat-stroked-button
+              color="minha-cor"
+              (click)="onDeactivateButtonClicked(item)"
+            >
+              Desativar perfil
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-list-item>
+  </mat-list>
+</div>

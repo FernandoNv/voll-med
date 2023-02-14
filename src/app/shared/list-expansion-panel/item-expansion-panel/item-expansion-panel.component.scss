@@ -1,0 +1,40 @@
+.app-item-expansion-panel {
+  .list {
+    @apply pt-2;
+
+    .list-item {
+      @apply h-auto mb-2;
+
+      .item-content {
+        @apply text-slate-500;
+      }
+
+      .actions-area {
+        @apply flex flex-row justify-between;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .mat-expansion-panel-body {
+    // background-color: aqua;
+    white-space: initial;
+  }
+
+  .mat-divider {
+    border-top-color: #90989f;
+  }
+
+  .mat-expansion-indicator::after {
+    border-color: initial;
+  }
+
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: #0b3b60;
+  }
+
+  .mat-content {
+    flex-direction: column;
+  }
+}

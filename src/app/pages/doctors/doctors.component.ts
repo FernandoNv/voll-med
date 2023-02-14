@@ -47,4 +47,12 @@ export class DoctorsComponent implements OnInit, OnDestroy {
 
     return list;
   }
+
+  public onEditButtonClicked(item: IItem): void {
+    console.log(item);
+  }
+
+  public onDeactivateButtonClicked(item: IItem): void {
+    console.log(item);
+  }
 }
