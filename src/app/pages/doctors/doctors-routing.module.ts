@@ -8,6 +8,7 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: DoctorsComponent,
+    title: 'Médicos',
   },
   {
     path: ':id',

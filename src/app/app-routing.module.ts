@@ -26,13 +26,11 @@ const routes: Routes = [
           import('./pages/patients/patients.module').then(
             (m) => m.PatientsModule
           ),
-        title: 'Pacientes',
       },
       {
         path: 'doctors',
         loadChildren: () =>
           import('./pages/doctors/doctors.module').then((m) => m.DoctorsModule),
-        title: 'Médicos',
       },
       {
         path: 'appointments',
@@ -40,7 +38,6 @@ const routes: Routes = [
           import('./pages/appointments/appointments.module').then(
             (m) => m.AppointmentsModule
           ),
-        title: 'Consultas',
       },
     ],
     canActivateChild: [AuthenticationGuard],
