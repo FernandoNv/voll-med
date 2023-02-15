@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface IItem {
+  id: number;
   title: string;
   description: string;
   content: string[];
@@ -20,11 +21,11 @@ export class ListExpansionPanelComponent implements OnInit {
   @Input() public items!: IItem[];
 
   @Output('edit-button-clicked')
-  public editButtonClicked: EventEmitter<IItem> = new EventEmitter<IItem>();
+  public editButtonClicked: EventEmitter<number> = new EventEmitter<number>();
 
   // prettier-ignore
   @Output('deactivate-button-clicked') 
-  public deactivateButtonClicked: EventEmitter<IItem> = new EventEmitter<IItem>();
+  public deactivateButtonClicked: EventEmitter<number> = new EventEmitter<number>();
 
   public listItemsExpansionPanel!: IItemsExpansionPanel[];
 
@@ -48,11 +49,11 @@ export class ListExpansionPanelComponent implements OnInit {
     this.listItemsExpansionPanel = newData;
   }
 
-  public onEditButtonClicked(item: IItem): void {
-    this.editButtonClicked.emit(item);
+  public onEditButtonClicked(idItemClicked: number): void {
+    this.editButtonClicked.emit(idItemClicked);
   }
 
-  public onDeactivateButtonClicked(item: IItem): void {
-    this.deactivateButtonClicked.emit(item);
+  public onDeactivateButtonClicked(idItemClicked: number): void {
+    this.deactivateButtonClicked.emit(idItemClicked);
   }
 }

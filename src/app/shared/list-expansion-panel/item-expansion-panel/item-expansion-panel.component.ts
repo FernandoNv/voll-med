@@ -11,19 +11,19 @@ export class ItemExpansionPanelComponent {
   public items!: IItem[];
 
   @Output('edit-button-clicked')
-  public editButtonClicked: EventEmitter<IItem> = new EventEmitter<IItem>();
+  public editButtonClicked: EventEmitter<number> = new EventEmitter<number>();
 
   // prettier-ignore
   @Output('deactivate-button-clicked') 
-  public deactivateButtonClicked: EventEmitter<IItem> = new EventEmitter<IItem>();
+  public deactivateButtonClicked: EventEmitter<number> = new EventEmitter<number>();
 
   public panelOpenState = false;
 
-  public onEditButtonClicked(item: IItem): void {
-    this.editButtonClicked.emit(item);
+  public onEditButtonClicked(idItemClicked: number): void {
+    this.editButtonClicked.emit(idItemClicked);
   }
 
-  public onDeactivateButtonClicked(item: IItem): void {
-    this.deactivateButtonClicked.emit(item);
+  public onDeactivateButtonClicked(idItemClicked: number): void {
+    this.deactivateButtonClicked.emit(idItemClicked);
   }
 }

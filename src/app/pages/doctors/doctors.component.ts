@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import { IItem } from 'src/app/shared/list-expansion-panel/list-expansion-panel.component';
 import { DoctorsService } from './doctors.service';
-import { IDoctor } from './model/doctor';
+import { IDoctor, IEndereco } from './model/doctor';
 
 @Component({
   selector: 'app-doctors',
@@ -16,7 +17,7 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   public isLoading!: boolean;
   public items$!: Observable<IItem[]>;
 
-  constructor(private doctorsService: DoctorsService) {
+  constructor(private doctorsService: DoctorsService, private router: Router) {
     this.doctorsService
       .loading()
       .pipe(takeUntil(this.destroySubject$))
@@ -40,19 +41,20 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   // prettier-ignore
   public mapperToItems(doctors: IDoctor[]){
     const list = doctors.map((item) => ({
+      id: item.id,
       title: item.nome,
       description: `${item.especialidade} | ${item.crm}`,
-      content: [item.nome, item.especialidade, item.crm]
+      content: [item.email]
     })) as IItem[];
 
     return list;
   }
 
-  public onEditButtonClicked(item: IItem): void {
-    console.log(item);
+  public onEditButtonClicked(idDoctor: number): void {
+    this.router.navigate(['/doctors/', idDoctor]);
   }
 
-  public onDeactivateButtonClicked(item: IItem): void {
-    console.log(item);
+  public onDeactivateButtonClicked(idDoctor: number): void {
+    console.log(idDoctor);
   }
 }

@@ -41,4 +41,9 @@ export class DoctorsService {
   public loading(): Observable<boolean> {
     return this.loadingSubject$.asObservable();
   }
+
+  getDoctorById(id: number): Observable<IDoctor> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.get<IDoctor>(url);
+  }
 }
