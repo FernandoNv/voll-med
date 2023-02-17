@@ -1,15 +1,23 @@
 <div class="app-doctor-edit">
-  <form *ngIf="doctor$ | async as doctor">
+  <form
+    *ngIf="doctor$ | async as doctor"
+    [formGroup]="doctorEditForm"
+    (ngSubmit)="onSubmit()"
+  >
     <fieldset class="input-area">
       <h3>Profissional</h3>
       <mat-form-field class="input-full" appearance="outline">
         <mat-label>Nome completo</mat-label>
-        <input matInput type="text" />
+        <input matInput type="text" formControlName="nome" required />
       </mat-form-field>
       <div class="inputs">
-        <mat-form-field class="" appearance="outline">
+        <mat-form-field class="input-60 pr-3" appearance="outline">
           <mat-label>Especialidade</mat-label>
-          <mat-select [(value)]="doctor.especialidade">
+          <mat-select
+            [(value)]="doctor.especialidade"
+            formControlName="especialidade"
+            required
+          >
             <mat-option
               [value]="item.toUpperCase()"
               *ngFor="let item of listEspecialidade"
@@ -18,69 +26,86 @@
           </mat-select>
         </mat-form-field>
         <span class="spacer"></span>
-        <mat-form-field class="" appearance="outline">
+        <mat-form-field class="input-40" appearance="outline">
           <mat-label>CRM</mat-label>
-          <input matInput type="text" />
+          <input matInput type="text" formControlName="crm" required />
         </mat-form-field>
       </div>
     </fieldset>
     <fieldset class="input-area">
       <h3>Contatos</h3>
-      <div class="input input-full">
-        <mat-form-field appearance="outline">
-          <mat-label>E-mail</mat-label>
-          <input matInput type="email" />
-        </mat-form-field>
-      </div>
-      <div class="input input-full">
-        <mat-form-field appearance="outline">
-          <mat-label>Telefone ou Celular</mat-label>
-          <input matInput type="text" />
-        </mat-form-field>
-      </div>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" required />
+      </mat-form-field>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Telefone ou Celular</mat-label>
+        <input matInput type="text" formControlName="telefone" required />
+      </mat-form-field>
     </fieldset>
     <fieldset class="input-area">
       <h3>Endereço Profissional</h3>
-      <div class="input input-60">
-        <mat-form-field appearance="outline">
+      <div class="inputs">
+        <mat-form-field class="input-60 pr-3" appearance="outline">
           <mat-label>CEP</mat-label>
-          <input matInput type="text" />
+          <input matInput type="text" formControlName="cep" required />
         </mat-form-field>
-      </div>
-      <div class="input input-40">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="input-40" appearance="outline">
           <mat-label>UF</mat-label>
-          <mat-select [value]="doctor.endereco?.uf">
+          <mat-select
+            [value]="doctor.endereco?.uf"
+            formControlName="uf"
+            required
+          >
             <mat-option *ngFor="let UF of UFs" [value]="UF">{{
               UF
             }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="input input-full">
-        <mat-form-field appearance="outline">
-          <mat-label>Logradouro</mat-label>
-          <input matInput type="text" />
-        </mat-form-field>
-      </div>
-      <div class="input input-40">
-        <mat-form-field appearance="outline">
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Logradouro</mat-label>
+        <input matInput type="text" formControlName="logradouro" required />
+      </mat-form-field>
+      <div class="inputs">
+        <mat-form-field class="input-40 pr-3" appearance="outline">
           <mat-label>Numero</mat-label>
-          <input matInput type="text" />
+          <input matInput type="text" formControlName="numero" />
         </mat-form-field>
-      </div>
-      <div class="input input-60">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="input-60" appearance="outline">
           <mat-label>Completo</mat-label>
-          <input matInput type="text" />
+          <input matInput type="text" formControlName="complemento" />
         </mat-form-field>
       </div>
-      <div class="input input-full">
-        <mat-form-field appearance="outline">
-          <mat-label>Cidade</mat-label>
-          <input matInput type="text" />
-        </mat-form-field>
-      </div>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Bairro</mat-label>
+        <input matInput type="text" formControlName="bairro" required />
+      </mat-form-field>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput type="text" formControlName="cidade" required />
+      </mat-form-field>
     </fieldset>
+    <div class="deactivate-profile-area">
+      <h4>Desativar este perfil</h4>
+    </div>
+    <div class="actions-area">
+      <button
+        mat-flat-button
+        [ngClass]="doctorEditForm.invalid ? '' : 'btn-submit'"
+        type="submit"
+        [disabled]="doctorEditForm.invalid"
+      >
+        Concluir edição
+      </button>
+      <button
+        mat-stroked-button
+        class="outline-button"
+        type="button"
+        (click)="onCancelClicked()"
+      >
+        Cancelar
+      </button>
+    </div>
   </form>
 </div>

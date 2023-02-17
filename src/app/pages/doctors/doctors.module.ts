@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -18,7 +19,7 @@ const matModules = [
   MatInputModule,
   MatSelectModule,
 ];
-const ngModules = [CommonModule, DoctorsRoutingModule];
+const ngModules = [CommonModule, DoctorsRoutingModule, ReactiveFormsModule];
 const appModules = [ListExpansionPanelModule];
 @NgModule({
   declarations: [DoctorsComponent, DoctorEditComponent],

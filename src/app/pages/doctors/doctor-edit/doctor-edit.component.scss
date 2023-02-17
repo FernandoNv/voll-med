@@ -1,27 +1,54 @@
+$blue-color: #0b3b60;
+
 .app-doctor-edit {
   form {
-    @apply bg-slate-500 px-4 py-2 w-full min-w-fit max-w-screen-lg;
-  }
-  .input-area {
-    .input {
+    @apply mx-auto p-4 w-full min-w-fit max-w-screen-sm;
+    .input-area {
+      h3 {
+        @apply font-bold;
+        color: $blue-color;
+      }
+      .input-full {
+        @apply w-full;
+      }
+
+      .inputs {
+        @apply flex flex-row flex-wrap justify-between;
+      }
+
+      .input-40 {
+        @apply w-4/12;
+      }
+
+      .input-60 {
+        @apply w-8/12;
+      }
     }
 
-    .input-full {
-      @apply w-full;
+    .deactivate-profile-area {
+      @apply flex justify-center p-3;
+      h4 {
+        @apply text-center cursor-pointer w-fit m-0 mb-4 underline font-bold;
+        color: $blue-color;
+      }
     }
 
-    .inputs {
-      @apply flex-1;
-    }
+    .actions-area {
+      @apply flex flex-col h-auto;
 
-    .input-40 {
-    }
-
-    .input-60 {
-    }
-
-    .spacer {
-      flex: 1 1 auto;
+      button {
+        @apply text-base font-bold mb-3;
+        padding: 24px !important;
+      }
+      .btn-submit {
+        background-color: $blue-color !important;
+        color: #fff;
+      }
+      .outline-button {
+        border: 2px solid $blue-color !important;
+        padding: 22px !important;
+        color: $blue-color;
+      }
     }
   }
 }
