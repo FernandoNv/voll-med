@@ -48,6 +48,7 @@ const routes: Routes = [
     component: SignInComponent,
     canMatch: [SignInGuard],
     data: { showHeader: false },
+    title: 'Entrar',
   },
   {
     path: '**',

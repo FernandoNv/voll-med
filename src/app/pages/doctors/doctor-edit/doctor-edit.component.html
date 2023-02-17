@@ -1,5 +1,86 @@
-<div class="app-doctor-details">
-  <div *ngIf="doctor$ | async as doctor">
-    {{ doctor.id }}
-  </div>
+<div class="app-doctor-edit">
+  <form *ngIf="doctor$ | async as doctor">
+    <fieldset class="input-area">
+      <h3>Profissional</h3>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Nome completo</mat-label>
+        <input matInput type="text" />
+      </mat-form-field>
+      <div class="inputs">
+        <mat-form-field class="" appearance="outline">
+          <mat-label>Especialidade</mat-label>
+          <mat-select [(value)]="doctor.especialidade">
+            <mat-option
+              [value]="item.toUpperCase()"
+              *ngFor="let item of listEspecialidade"
+              >{{ item }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <mat-form-field class="" appearance="outline">
+          <mat-label>CRM</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+    </fieldset>
+    <fieldset class="input-area">
+      <h3>Contatos</h3>
+      <div class="input input-full">
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email" />
+        </mat-form-field>
+      </div>
+      <div class="input input-full">
+        <mat-form-field appearance="outline">
+          <mat-label>Telefone ou Celular</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+    </fieldset>
+    <fieldset class="input-area">
+      <h3>Endereço Profissional</h3>
+      <div class="input input-60">
+        <mat-form-field appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+      <div class="input input-40">
+        <mat-form-field appearance="outline">
+          <mat-label>UF</mat-label>
+          <mat-select [value]="doctor.endereco?.uf">
+            <mat-option *ngFor="let UF of UFs" [value]="UF">{{
+              UF
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="input input-full">
+        <mat-form-field appearance="outline">
+          <mat-label>Logradouro</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+      <div class="input input-40">
+        <mat-form-field appearance="outline">
+          <mat-label>Numero</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+      <div class="input input-60">
+        <mat-form-field appearance="outline">
+          <mat-label>Completo</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+      <div class="input input-full">
+        <mat-form-field appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput type="text" />
+        </mat-form-field>
+      </div>
+    </fieldset>
+  </form>
 </div>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 import { IItem } from 'src/app/shared/list-expansion-panel/list-expansion-panel.component';
 import { DoctorsService } from './doctors.service';
-import { IDoctor, IEndereco } from './model/doctor';
+import { IDoctor } from './model/doctor';
 
 @Component({
   selector: 'app-doctors',

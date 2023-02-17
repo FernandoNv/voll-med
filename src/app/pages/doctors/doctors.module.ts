@@ -6,8 +6,18 @@ import { ListExpansionPanelModule } from 'src/app/shared/list-expansion-panel/li
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DoctorsComponent } from './doctors.component';
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
-const matModules = [MatProgressSpinnerModule];
+const matModules = [
+  MatProgressSpinnerModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatSelectModule,
+];
 const ngModules = [CommonModule, DoctorsRoutingModule];
 const appModules = [ListExpansionPanelModule];
 @NgModule({

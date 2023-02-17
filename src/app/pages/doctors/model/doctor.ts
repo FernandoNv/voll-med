@@ -1,3 +1,5 @@
+import { IEndereco } from 'src/app/shared/service/address';
+
 export interface IDoctor {
   id: number;
   nome: string;
@@ -8,19 +10,9 @@ export interface IDoctor {
   endereco?: IEndereco;
 }
 
-export interface IEndereco {
-  logradouro: string;
-  bairro: string;
-  cep: string;
-  cidade: string;
-  uf: string;
-  complemento?: string;
-  numero?: string;
-}
-
 export enum IEspecialidade {
-  ORTOPEDIA,
-  CARDIOLOGIA,
-  GINECOLOGIA,
-  DERMATOLOGIA,
+  ORTOPEDIA = 'Ortopedia',
+  CARDIOLOGIA = 'Cardiologia',
+  GINECOLOGIA = 'Ginecologia',
+  DERMATOLOGIA = 'Dermatologia',
 }

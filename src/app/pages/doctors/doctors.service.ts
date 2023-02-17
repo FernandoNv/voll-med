@@ -1,14 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  delay,
-  finalize,
-  map,
-  Observable,
-  retry,
-  shareReplay,
-  Subject,
-} from 'rxjs';
+import { delay, map, Observable, retry, shareReplay, Subject } from 'rxjs';
 import { IPageable } from 'src/app/shared/model/pageable';
 import { environment } from 'src/environments/environment';
 import { IDoctor } from './model/doctor';
