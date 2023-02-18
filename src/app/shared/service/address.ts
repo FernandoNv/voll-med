@@ -6,4 +6,5 @@ export interface IEndereco {
   uf: string;
   complemento?: string;
   numero?: string;
+  localidade?: string;
 }

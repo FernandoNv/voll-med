@@ -48,15 +48,17 @@
       <div class="inputs">
         <mat-form-field class="input-60 pr-3" appearance="outline">
           <mat-label>CEP</mat-label>
-          <input matInput type="text" formControlName="cep" required />
+          <input
+            maxlength="8"
+            matInput
+            type="text"
+            formControlName="cep"
+            required
+          />
         </mat-form-field>
         <mat-form-field class="input-40" appearance="outline">
           <mat-label>UF</mat-label>
-          <mat-select
-            [value]="doctor.endereco?.uf"
-            formControlName="uf"
-            required
-          >
+          <mat-select formControlName="uf" required>
             <mat-option *ngFor="let UF of UFs" [value]="UF">{{
               UF
             }}</mat-option>

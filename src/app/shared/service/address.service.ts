@@ -10,6 +10,8 @@ export class AddressService {
   constructor(private httpCliente: HttpClient) {}
 
   public getAddress(cep: string): Observable<IEndereco> {
+    cep = cep.replace(/\D/g, '');
+    console.log(cep);
     const url = `https://viacep.com.br/ws/${cep}/json`;
 
     return this.httpCliente.get<IEndereco>(url);

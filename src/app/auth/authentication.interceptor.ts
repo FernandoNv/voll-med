@@ -15,6 +15,9 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   // prettier-ignore
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if(request.url.startsWith('https://viacep')){
+      return next.handle(request);
+    }
     if (this.tokenService.hasToken()) {
       const token = this.tokenService.getToken();
 

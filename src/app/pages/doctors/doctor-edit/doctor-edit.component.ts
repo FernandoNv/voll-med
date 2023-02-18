@@ -1,17 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
+import {
+  delay,
+  distinctUntilChanged,
+  filter,
+  Observable,
+  skip,
+  skipWhile,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { DoctorsService } from '../doctors.service';
 import { IDoctor, IEspecialidade } from '../model/doctor';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AddressService } from 'src/app/shared/service/address.service';
 
 @Component({
   selector: 'app-doctor-edit',
   templateUrl: './doctor-edit.component.html',
   styleUrls: ['./doctor-edit.component.scss'],
 })
-export class DoctorEditComponent implements OnInit {
+export class DoctorEditComponent implements OnInit, OnDestroy {
   public doctor$!: Observable<IDoctor>;
 
   public listEspecialidade: string[] = Object.values(IEspecialidade);
@@ -46,27 +63,16 @@ export class DoctorEditComponent implements OnInit {
   ].sort((a, b) => (b > a ? -1 : 1));
   public doctorEditForm!: FormGroup;
 
+  private destroySubject$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private doctorsService: DoctorsService,
     private ativatedRoute: ActivatedRoute,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private addressService: AddressService
   ) {
-    this.doctorEditForm = this.formBuilder.group({
-      nome: [''],
-      crm: [{ value: '', disabled: true }],
-      email: [{ value: '', disabled: true }],
-      especialidade: [{ value: '', disabled: true }],
-      telefone: [''],
-      logradouro: [''],
-      numero: [''],
-      uf: [''],
-      complemento: [''],
-      cidade: [''],
-      cep: [''],
-      bairro: [''],
-    });
-
+    this.initForm();
     this.doctor$ = this.ativatedRoute.paramMap.pipe(
       switchMap((params) => {
         const id = Number(params.get('id'));
@@ -91,11 +97,58 @@ export class DoctorEditComponent implements OnInit {
     );
   }
 
-  public onSubmit() {
-    console.log('atualizar as informações');
+  private initForm() {
+    this.doctorEditForm = this.formBuilder.group({
+      nome: [''],
+      crm: [{ value: '', disabled: true }],
+      email: [{ value: '', disabled: true }],
+      especialidade: [{ value: '', disabled: true }],
+      telefone: [''],
+      logradouro: [''],
+      numero: [''],
+      uf: ['', [Validators.minLength(2), Validators.maxLength(2)]],
+      complemento: [''],
+      cidade: [''],
+      cep: ['', [Validators.minLength(8), Validators.maxLength(8)]],
+      bairro: [''],
+    });
   }
 
-  public ngOnInit(): void {}
+  private initEventInputCep() {
+    const cepFormControl = this.doctorEditForm.get('cep') as FormControl;
+    cepFormControl.valueChanges
+      .pipe(
+        takeUntil(this.destroySubject$),
+        delay(300),
+        distinctUntilChanged(),
+        filter((value: string) => value.length > 7),
+        skip(1),
+        switchMap((value) => this.addressService.getAddress(value))
+      )
+      .subscribe((next) => {
+        // console.log(next);
+        this.doctorEditForm.patchValue({
+          logradouro: next.logradouro,
+          uf: next.uf,
+          cidade: next.localidade,
+          bairro: next.bairro,
+        });
+      });
+  }
+
+  public onSubmit() {
+    const formValues = this.doctorEditForm.getRawValue();
+    console.log(formValues);
+  }
+
+  public ngOnInit(): void {
+    this.initEventInputCep();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroySubject$.next(true);
+    this.destroySubject$.complete();
+  }
 
   public onCancelClicked() {
     this.location.back();
