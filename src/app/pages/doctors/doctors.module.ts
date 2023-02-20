@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { PhonePipe } from 'src/app/shared/pipe/phone.pipe';
+import { CepPipe } from 'src/app/shared/pipe/cep.pipe';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -20,9 +23,10 @@ const matModules = [
   MatSelectModule,
 ];
 const ngModules = [CommonModule, DoctorsRoutingModule, ReactiveFormsModule];
-const appModules = [ListExpansionPanelModule];
+const appModules = [ListExpansionPanelModule, SharedModule];
 @NgModule({
   declarations: [DoctorsComponent, DoctorEditComponent],
   imports: [...ngModules, ...matModules, ...appModules],
+  providers: [PhonePipe, CepPipe],
 })
 export class DoctorsModule {}

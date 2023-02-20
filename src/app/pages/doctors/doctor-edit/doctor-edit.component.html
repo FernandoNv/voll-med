@@ -40,7 +40,13 @@
       </mat-form-field>
       <mat-form-field class="input-full" appearance="outline">
         <mat-label>Telefone ou Celular</mat-label>
-        <input matInput type="text" formControlName="telefone" required />
+        <input
+          matInput
+          type="text"
+          formControlName="telefone"
+          [value]="telefone?.value | phone"
+          required
+        />
       </mat-form-field>
     </fieldset>
     <fieldset class="input-area">
@@ -54,6 +60,7 @@
             type="text"
             formControlName="cep"
             required
+            [value]="cep?.value | cep"
           />
         </mat-form-field>
         <mat-form-field class="input-40" appearance="outline">

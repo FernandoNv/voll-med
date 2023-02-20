@@ -4,6 +4,7 @@ import {
   delay,
   distinctUntilChanged,
   filter,
+  map,
   Observable,
   skip,
   skipWhile,
@@ -22,6 +23,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AddressService } from 'src/app/shared/service/address.service';
+import { PhonePipe } from 'src/app/shared/pipe/phone.pipe';
+import { CepPipe } from 'src/app/shared/pipe/cep.pipe';
 
 @Component({
   selector: 'app-doctor-edit',
@@ -70,7 +73,9 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
     private ativatedRoute: ActivatedRoute,
     private location: Location,
     private formBuilder: FormBuilder,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private phonePipe: PhonePipe,
+    private cepPipe: CepPipe
   ) {
     this.initForm();
     this.doctor$ = this.ativatedRoute.paramMap.pipe(
@@ -84,13 +89,13 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
           crm: next.crm,
           email: next.email,
           especialidade: next.especialidade,
-          telefone: next.telefone,
+          telefone: this.phonePipe.transform(next.telefone ?? ''),
           logradouro: next.endereco?.logradouro,
           numero: next.endereco?.numero,
           uf: next.endereco?.uf,
           complemento: next.endereco?.complemento,
           cidade: next.endereco?.cidade,
-          cep: next.endereco?.cep,
+          cep: this.cepPipe.transform(next.endereco?.cep ?? ''),
           bairro: next.endereco?.bairro,
         });
       })
@@ -121,8 +126,9 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
         takeUntil(this.destroySubject$),
         delay(300),
         distinctUntilChanged(),
-        filter((value: string) => value.length > 7),
         skip(1),
+        map((value: string) => value.replace(/\D/g, '')),
+        filter((value) => value.length > 7),
         switchMap((value) => this.addressService.getAddress(value))
       )
       .subscribe((next) => {
