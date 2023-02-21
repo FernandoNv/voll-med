@@ -10,6 +10,13 @@ export interface IDoctor {
   endereco?: IEndereco;
 }
 
+export interface IUpdateDoctor {
+  id: number;
+  nome: string;
+  telefone: string;
+  endereco: IEndereco;
+}
+
 export enum IEspecialidade {
   ORTOPEDIA = 'Ortopedia',
   CARDIOLOGIA = 'Cardiologia',

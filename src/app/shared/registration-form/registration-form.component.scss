@@ -1,0 +1,54 @@
+$blue-color: #0b3b60;
+
+.app-registration-form {
+  form {
+    @apply mx-auto p-4 w-full min-w-fit max-w-screen-sm;
+    .input-area {
+      h3 {
+        @apply font-bold;
+        color: $blue-color;
+      }
+      .input-full {
+        @apply w-full;
+      }
+
+      .inputs {
+        @apply flex flex-row flex-wrap justify-between;
+      }
+
+      .input-40 {
+        @apply w-4/12;
+      }
+
+      .input-60 {
+        @apply w-8/12;
+      }
+    }
+
+    .deactivate-profile-area {
+      @apply flex justify-center p-3;
+      h4 {
+        @apply text-center cursor-pointer w-fit m-0 mb-4 underline font-bold;
+        color: $blue-color;
+      }
+    }
+
+    .actions-area {
+      @apply flex flex-col h-auto;
+
+      button {
+        @apply text-base font-bold mb-3;
+        padding: 24px !important;
+      }
+      .btn-submit {
+        background-color: $blue-color !important;
+        color: #fff;
+      }
+      .outline-button {
+        border: 2px solid $blue-color !important;
+        padding: 22px !important;
+        color: $blue-color;
+      }
+    }
+  }
+}

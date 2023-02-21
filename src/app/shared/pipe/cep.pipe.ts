@@ -15,4 +15,8 @@ export class CepPipe implements PipeTransform {
 
     return cep;
   }
+
+  removeTransformations(cep: string) {
+    return cep.replaceAll('-', '');
+  }
 }

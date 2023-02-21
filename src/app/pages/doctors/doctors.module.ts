@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PhonePipe } from 'src/app/shared/pipe/phone.pipe';
 import { CepPipe } from 'src/app/shared/pipe/cep.pipe';
+import { RegistrationFormModule } from 'src/app/shared/registration-form/registration-form.module';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -23,7 +24,11 @@ const matModules = [
   MatSelectModule,
 ];
 const ngModules = [CommonModule, DoctorsRoutingModule, ReactiveFormsModule];
-const appModules = [ListExpansionPanelModule, SharedModule];
+const appModules = [
+  ListExpansionPanelModule,
+  SharedModule,
+  RegistrationFormModule,
+];
 @NgModule({
   declarations: [DoctorsComponent, DoctorEditComponent],
   imports: [...ngModules, ...matModules, ...appModules],

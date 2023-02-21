@@ -41,4 +41,11 @@ export class PhonePipe implements PipeTransform {
 
     return phone;
   }
+
+  removeTransformations(phone: string) {
+    phone = phone.replaceAll('-', '');
+    phone = phone.replaceAll(' ', '');
+    phone = phone.replaceAll('(', '');
+    return phone.replaceAll(')', '');
+  }
 }

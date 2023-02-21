@@ -1,0 +1,123 @@
+<div class="app-registration-form">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <fieldset class="input-area">
+      <h3>Profissional</h3>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Nome completo</mat-label>
+        <input matInput type="text" formControlName="nome" required />
+      </mat-form-field>
+      <div *ngIf="formOptions.type === 'doctor'" class="inputs">
+        <mat-form-field class="input-60 pr-3" appearance="outline">
+          <mat-label>Especialidade</mat-label>
+          <mat-select
+            [value]="especialidade?.value"
+            formControlName="especialidade"
+            required
+          >
+            <mat-option
+              [value]="item.toUpperCase()"
+              *ngFor="let item of listEspecialidade"
+              >{{ item }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <mat-form-field class="input-40" appearance="outline">
+          <mat-label>CRM</mat-label>
+          <input matInput type="text" formControlName="crm" required />
+        </mat-form-field>
+      </div>
+      <mat-form-field
+        *ngIf="formOptions.type === 'patient'"
+        class="input-full"
+        appearance="outline"
+      >
+        <mat-label>CPF</mat-label>
+        <input matInput type="text" formControlName="cpf" required />
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="input-area">
+      <h3>Contatos</h3>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" required />
+      </mat-form-field>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Telefone ou Celular</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="telefone"
+          [value]="telefone?.value | phone"
+          required
+        />
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="input-area">
+      <h3>Endereço Profissional</h3>
+      <div class="inputs">
+        <mat-form-field class="input-60 pr-3" appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="cep"
+            [value]="cep?.value | cep"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field class="input-40" appearance="outline">
+          <mat-label>UF</mat-label>
+          <mat-select formControlName="uf" required>
+            <mat-option *ngFor="let UF of UFs" [value]="UF">{{
+              UF
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Logradouro</mat-label>
+        <input matInput type="text" formControlName="logradouro" required />
+      </mat-form-field>
+      <div class="inputs">
+        <mat-form-field class="input-40 pr-3" appearance="outline">
+          <mat-label>Numero</mat-label>
+          <input matInput type="number" formControlName="numero" />
+        </mat-form-field>
+        <mat-form-field class="input-60" appearance="outline">
+          <mat-label>Completo</mat-label>
+          <input matInput type="text" formControlName="complemento" />
+        </mat-form-field>
+      </div>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Bairro</mat-label>
+        <input matInput type="text" formControlName="bairro" required />
+      </mat-form-field>
+      <mat-form-field class="input-full" appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput type="text" formControlName="cidade" required />
+      </mat-form-field>
+    </fieldset>
+    <div class="deactivate-profile-area">
+      <h4 (click)="onDeactivateClicked()">Desativar este perfil</h4>
+    </div>
+    <div class="actions-area">
+      <button
+        mat-flat-button
+        type="submit"
+        [ngClass]="registrationForm.invalid ? '' : 'btn-submit'"
+        [disabled]="registrationForm.invalid"
+      >
+        Concluir edição
+      </button>
+      <button
+        mat-stroked-button
+        class="outline-button"
+        type="button"
+        (click)="onCancelClicked()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
