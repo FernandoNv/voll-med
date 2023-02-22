@@ -1,6 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, Subject, take, takeUntil } from 'rxjs';
+import {
+  filter,
+  map,
+  Observable,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { DeactivateAccountPopupComponent } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.component';
 import { DeactivateAccountPopupService } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.service';
 import { IItem } from 'src/app/shared/components/list-expansion-panel/list-expansion-panel.component';
@@ -31,7 +39,6 @@ export class DoctorsComponent implements OnInit, OnDestroy {
       .subscribe((next) => {
         this.isLoading = next;
       });
-    this.doctors$ = this.doctorsService.getDoctors();
   }
 
   ngOnDestroy(): void {
@@ -40,13 +47,18 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setItems();
+  }
+
+  private setItems() {
+    this.doctors$ = this.doctorsService.getDoctors();
     this.items$ = this.doctors$.pipe(
       map((doctors) => this.mapperToItems(doctors))
     );
   }
 
   // prettier-ignore
-  public mapperToItems(doctors: IDoctor[]): IItem[]{
+  private mapperToItems(doctors: IDoctor[]): IItem[]{
     const list = doctors.map((item) => ({
       id: item.id,
       title: item.nome,
@@ -62,15 +74,31 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   }
 
   public onDeactivateButtonClicked(idDoctor: number): void {
-    this.doctorsService
-      .getDoctorById(idDoctor)
-      .pipe(take(1))
-      .subscribe((doctor) => {
+    const modalOpen$ = this.doctorsService.getDoctorById(idDoctor).pipe(
+      take(1),
+      switchMap((doctor) => {
         const data: IDialogData = {
           informationName: doctor.nome,
           informationText: this.doctorsService.formatTextModal(doctor),
         };
-        this.deactivateAccountPopupService.open(data);
+        return this.deactivateAccountPopupService.open(data);
+      })
+    );
+
+    modalOpen$
+      .pipe(
+        filter((deactivate) => deactivate === true),
+        switchMap((_) => this.doctorsService.deactivateAccountById(idDoctor))
+      )
+      .subscribe({
+        next: (_) => {
+          this.setItems();
+        },
+        error: (error) => {
+          console.log('Erro with the deactivation');
+          console.log(error);
+          this.deactivateAccountPopupService.open();
+        },
       });
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap, take } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, Observable, switchMap, take } from 'rxjs';
 
 import { DoctorsService } from '../doctors.service';
 import { IDoctor, IUpdateDoctor } from '../model/doctor';
@@ -25,6 +25,7 @@ export class DoctorEditComponent {
 
   constructor(
     private doctorsService: DoctorsService,
+    private router: Router,
     private ativatedRoute: ActivatedRoute,
     private location: Location,
     private deactivateAccountPopupService: DeactivateAccountPopupService
@@ -94,13 +95,34 @@ export class DoctorEditComponent {
       });
   }
 
-  public onDeactivateAccount(): void {
-    this.doctor$.pipe(take(1)).subscribe((doctor) => {
-      const data: IDialogData = {
-        informationName: doctor.nome,
-        informationText: this.doctorsService.formatTextModal(doctor),
-      };
-      this.deactivateAccountPopupService.open(data);
-    });
+  public onDeactivateButtonClicked(): void {
+    const modalOpen$ = this.doctorsService.getDoctorById(this.idDoctor).pipe(
+      take(1),
+      switchMap((doctor) => {
+        const data: IDialogData = {
+          informationName: doctor.nome,
+          informationText: this.doctorsService.formatTextModal(doctor),
+        };
+        return this.deactivateAccountPopupService.open(data);
+      })
+    );
+
+    modalOpen$
+      .pipe(
+        filter((deactivate) => deactivate === true),
+        switchMap((_) =>
+          this.doctorsService.deactivateAccountById(this.idDoctor)
+        )
+      )
+      .subscribe({
+        next: (_) => {
+          this.router.navigate(['/doctors']);
+        },
+        error: (error) => {
+          console.log('Erro with the deactivation');
+          console.log(error);
+          this.deactivateAccountPopupService.open();
+        },
+      });
   }
 }

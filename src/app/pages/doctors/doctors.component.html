@@ -4,11 +4,18 @@
   </div>
   <span *ngIf="!isLoading">
     <div *ngIf="items$ | async as items">
-      <app-list-expansion-panel
-        [items]="items"
-        (edit-button-clicked)="onEditButtonClicked($event)"
-        (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
-      ></app-list-expansion-panel>
+      <div *ngIf="items.length > 0; else noItems">
+        <app-list-expansion-panel
+          [items]="items"
+          (edit-button-clicked)="onEditButtonClicked($event)"
+          (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
+        ></app-list-expansion-panel>
+      </div>
     </div>
+    <ng-template #noItems>
+      <div class="no-content-area">
+        <p>Sem médicos cadastrados...</p>
+      </div>
+    </ng-template>
   </span>
 </div>

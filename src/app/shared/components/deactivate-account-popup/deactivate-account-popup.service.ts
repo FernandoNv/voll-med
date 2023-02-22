@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { IDialogData } from '../../models/dialog-data';
 import { DeactivateAccountPopupComponent } from './deactivate-account-popup.component';
 
@@ -9,14 +10,12 @@ import { DeactivateAccountPopupComponent } from './deactivate-account-popup.comp
 export class DeactivateAccountPopupService {
   constructor(@Inject(MatDialog) private dialog: MatDialog) {}
 
-  public open(data: IDialogData): void {
+  public open(data?: IDialogData): Observable<boolean> {
     const dialogRef = this.dialog.open(DeactivateAccountPopupComponent, {
       data,
       maxWidth: '450px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    return dialogRef.afterClosed();
   }
 }

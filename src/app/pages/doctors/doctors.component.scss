@@ -4,4 +4,8 @@
   .spinner-area {
     @apply h-full flex flex-col items-center justify-center;
   }
+
+  .no-content-area {
+    @apply p-4 text-slate-600;
+  }
 }

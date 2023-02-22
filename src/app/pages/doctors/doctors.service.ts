@@ -43,6 +43,11 @@ export class DoctorsService {
     return this.httpClient.put<IDoctor>(this.baseUrl, updateValues);
   }
 
+  public deactivateAccountById(id: number): Observable<void> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.delete<void>(url);
+  }
+
   public formatTextModal(doctor: IDoctor): string[] {
     const arrText = [
       `${

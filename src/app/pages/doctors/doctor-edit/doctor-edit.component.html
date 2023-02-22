@@ -4,6 +4,6 @@
     [form-options]="buildFormOptions(doctor)"
     [update]="true"
     (form-values-emitter)="onSubmit($event)"
-    (deactivate-account-emitter)="onDeactivateAccount()"
+    (deactivate-account-emitter)="onDeactivateButtonClicked()"
   ></app-registration-form>
 </div>
