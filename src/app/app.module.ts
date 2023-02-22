@@ -8,8 +8,14 @@ import { SplashScreenModule } from './pages/splash-screen/splash-screen.module';
 import { SignInAndSignUpModule } from './pages/sign-in-and-sign-up/sign-in-and-sign-up.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeModule } from './pages/home/home.module';
-import { LayoutModule } from './shared/layout/layout.module';
+import { LayoutModule } from './shared/components/layout/layout.module';
 import { AuthenticationInterceptor } from './auth/authentication.interceptor';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { DeactivateAccountPopupService } from './shared/components/deactivate-account-popup/deactivate-account-popup.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +28,7 @@ import { AuthenticationInterceptor } from './auth/authentication.interceptor';
     SignInAndSignUpModule,
     HomeModule,
     LayoutModule,
+    MatDialogModule,
   ],
   providers: [
     {
@@ -29,6 +36,15 @@ import { AuthenticationInterceptor } from './auth/authentication.interceptor';
       useClass: AuthenticationInterceptor,
       multi: true,
     },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {},
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+    DeactivateAccountPopupService,
   ],
   bootstrap: [AppComponent],
 })

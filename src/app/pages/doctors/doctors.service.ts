@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, retry, shareReplay, Subject } from 'rxjs';
-import { IPageable } from 'src/app/shared/model/pageable';
+import { IPageable } from 'src/app/shared/models/pageable';
 import { environment } from 'src/environments/environment';
 import { IDoctor, IUpdateDoctor } from './model/doctor';
 
@@ -16,7 +16,7 @@ export class DoctorsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDoctors(): Observable<IDoctor[]> {
+  public getDoctors(): Observable<IDoctor[]> {
     this.loadingSubject$.next(true);
     const observable = this.httpClient.get<IPageable>(this.baseUrl).pipe(
       retry(3),
@@ -34,12 +34,23 @@ export class DoctorsService {
     return this.loadingSubject$.asObservable();
   }
 
-  getDoctorById(id: number): Observable<IDoctor> {
+  public getDoctorById(id: number): Observable<IDoctor> {
     const url = `${this.baseUrl}/${id}`;
     return this.httpClient.get<IDoctor>(url);
   }
 
-  updateById(updateValues: IUpdateDoctor) {
+  public updateById(updateValues: IUpdateDoctor) {
     return this.httpClient.put<IDoctor>(this.baseUrl, updateValues);
+  }
+
+  public formatTextModal(doctor: IDoctor): string[] {
+    const arrText = [
+      `${
+        doctor.especialidade.charAt(0) +
+        doctor.especialidade.toLowerCase().slice(1)
+      } | CRM ${doctor.crm}`,
+    ];
+
+    return arrText;
   }
 }

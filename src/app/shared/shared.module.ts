@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PhonePipe } from './pipe/phone.pipe';
-import { CepPipe } from './pipe/cep.pipe';
+import { PhonePipe } from './pipes/phone.pipe';
+import { CepPipe } from './pipes/cep.pipe';
 
 const pipes = [PhonePipe, CepPipe];
 

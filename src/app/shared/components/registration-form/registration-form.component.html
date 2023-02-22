@@ -98,7 +98,7 @@
         <input matInput type="text" formControlName="cidade" required />
       </mat-form-field>
     </fieldset>
-    <div class="deactivate-profile-area">
+    <div *ngIf="update" class="deactivate-profile-area">
       <h4 (click)="onDeactivateClicked()">Desativar este perfil</h4>
     </div>
     <div class="actions-area">

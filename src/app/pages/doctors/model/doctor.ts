@@ -1,4 +1,4 @@
-import { IEndereco } from 'src/app/shared/service/address';
+import { IEndereco } from 'src/app/shared/services/address';
 
 export interface IDoctor {
   id: number;

@@ -2,6 +2,7 @@
   <app-registration-form
     *ngIf="doctor$ | async as doctor"
     [form-options]="buildFormOptions(doctor)"
+    [update]="true"
     (form-values-emitter)="onSubmit($event)"
     (deactivate-account-emitter)="onDeactivateAccount()"
   ></app-registration-form>

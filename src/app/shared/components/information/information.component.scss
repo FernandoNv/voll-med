@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app-information {
+  border-left-width: 5px;
+  @apply border-blue-300 px-4;
+
+  .title {
+    h3 {
+      color: #0b3b60;
+      @apply font-semibold;
+    }
+  }
+
+  .content {
+    p {
+      @apply text-gray-500;
+    }
+  }
+}

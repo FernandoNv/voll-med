@@ -1,0 +1,50 @@
+$blue-color: #0b3b60;
+
+.app-deactivate-account-popup {
+  @apply container p-4;
+  .icon-account-area {
+    @apply rounded-xl flex items-center justify-center;
+    .icon-account {
+      background-color: $blue-color;
+      @apply rounded-xl flex items-center justify-center flex-col w-20 h-20 md:w-24 md:h-24;
+    }
+  }
+  .title {
+    text-align: center;
+  }
+  .information-person {
+    @apply flex justify-center;
+  }
+
+  .information-content {
+    p {
+      @apply text-center text-slate-800;
+    }
+  }
+  .actions-area {
+    @apply flex md:flex-row h-auto;
+
+    button {
+      @apply w-full text-base font-bold mb-3;
+      padding: 24px !important;
+    }
+    .btn {
+      background-color: $blue-color !important;
+      color: #fff;
+      font-weight: normal;
+    }
+    .outline-button {
+      border: 2px solid $blue-color !important;
+      padding: 22px !important;
+      color: $blue-color;
+      margin-left: 0 !important;
+    }
+  }
+}
+
+:host ::ng-deep mat-dialog-content {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  padding-top: 20px !important;
+  padding-bottom: 24px !important;
+}

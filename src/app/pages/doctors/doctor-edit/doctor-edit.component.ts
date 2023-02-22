@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap, take } from 'rxjs';
-import {
-  IRegistrationFormInputValues,
-  IRegistrationFormOption,
-} from 'src/app/shared/model/registration-form';
+
 import { DoctorsService } from '../doctors.service';
 import { IDoctor, IUpdateDoctor } from '../model/doctor';
 import { Location } from '@angular/common';
+import {
+  IRegistrationFormInputValues,
+  IRegistrationFormOption,
+} from 'src/app/shared/models/registration-form';
+import { DeactivateAccountPopupService } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.service';
+import { IDialogData } from 'src/app/shared/models/dialog-data';
 
 @Component({
   selector: 'app-doctor-edit',
@@ -18,13 +21,13 @@ export class DoctorEditComponent {
   public doctor$!: Observable<IDoctor>;
   public success!: boolean;
   public message!: string;
-
   private idDoctor!: number;
 
   constructor(
     private doctorsService: DoctorsService,
     private ativatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private deactivateAccountPopupService: DeactivateAccountPopupService
   ) {
     this.doctor$ = this.ativatedRoute.paramMap.pipe(
       switchMap((params) => {
@@ -92,6 +95,12 @@ export class DoctorEditComponent {
   }
 
   public onDeactivateAccount(): void {
-    console.log('abrir pop up para desativar a conta');
+    this.doctor$.pipe(take(1)).subscribe((doctor) => {
+      const data: IDialogData = {
+        informationName: doctor.nome,
+        informationText: this.doctorsService.formatTextModal(doctor),
+      };
+      this.deactivateAccountPopupService.open(data);
+    });
   }
 }

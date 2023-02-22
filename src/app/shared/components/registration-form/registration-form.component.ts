@@ -28,10 +28,10 @@ import {
   IRegistrationFormInputValues,
   IRegistrationFormOption,
   UFs,
-} from '../model/registration-form';
-import { CepPipe } from '../pipe/cep.pipe';
-import { PhonePipe } from '../pipe/phone.pipe';
-import { AddressService } from '../service/address.service';
+} from '../../models/registration-form';
+import { CepPipe } from '../../pipes/cep.pipe';
+import { PhonePipe } from '../../pipes/phone.pipe';
+import { AddressService } from '../../services/address.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -41,6 +41,9 @@ import { AddressService } from '../service/address.service';
 export class RegistrationFormComponent implements OnInit, OnDestroy {
   @Input('form-options')
   public formOptions!: IRegistrationFormOption;
+
+  @Input()
+  public update: boolean = false;
 
   @Output('form-values-emitter')
   public formValuesEmitter = new EventEmitter<IRegistrationFormInputValues>();

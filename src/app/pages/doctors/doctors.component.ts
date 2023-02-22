@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
-import { IItem } from 'src/app/shared/list-expansion-panel/list-expansion-panel.component';
+import { map, Observable, Subject, take, takeUntil } from 'rxjs';
+import { DeactivateAccountPopupComponent } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.component';
+import { DeactivateAccountPopupService } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.service';
+import { IItem } from 'src/app/shared/components/list-expansion-panel/list-expansion-panel.component';
+import { IDialogData } from 'src/app/shared/models/dialog-data';
 import { DoctorsService } from './doctors.service';
 import { IDoctor } from './model/doctor';
 
@@ -17,14 +20,18 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   public isLoading!: boolean;
   public items$!: Observable<IItem[]>;
 
-  constructor(private doctorsService: DoctorsService, private router: Router) {
+  constructor(
+    private doctorsService: DoctorsService,
+    private router: Router,
+    private deactivateAccountPopupService: DeactivateAccountPopupService
+  ) {
     this.doctorsService
       .loading()
       .pipe(takeUntil(this.destroySubject$))
       .subscribe((next) => {
         this.isLoading = next;
       });
-    this.doctors$ = this.doctors$ = this.doctorsService.getDoctors();
+    this.doctors$ = this.doctorsService.getDoctors();
   }
 
   ngOnDestroy(): void {
@@ -39,7 +46,7 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   }
 
   // prettier-ignore
-  public mapperToItems(doctors: IDoctor[]){
+  public mapperToItems(doctors: IDoctor[]): IItem[]{
     const list = doctors.map((item) => ({
       id: item.id,
       title: item.nome,
@@ -55,6 +62,15 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   }
 
   public onDeactivateButtonClicked(idDoctor: number): void {
-    console.log(idDoctor);
+    this.doctorsService
+      .getDoctorById(idDoctor)
+      .pipe(take(1))
+      .subscribe((doctor) => {
+        const data: IDialogData = {
+          informationName: doctor.nome,
+          informationText: this.doctorsService.formatTextModal(doctor),
+        };
+        this.deactivateAccountPopupService.open(data);
+      });
   }
 }

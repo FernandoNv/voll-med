@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DoctorsRoutingModule } from './doctors-routing.module';
-import { ListExpansionPanelModule } from 'src/app/shared/list-expansion-panel/list-expansion-panel.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DoctorsComponent } from './doctors.component';
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
@@ -12,9 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PhonePipe } from 'src/app/shared/pipe/phone.pipe';
-import { CepPipe } from 'src/app/shared/pipe/cep.pipe';
-import { RegistrationFormModule } from 'src/app/shared/registration-form/registration-form.module';
+import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
+import { CepPipe } from 'src/app/shared/pipes/cep.pipe';
+import { RegistrationFormModule } from 'src/app/shared/components/registration-form/registration-form.module';
+import { ListExpansionPanelModule } from 'src/app/shared/components/list-expansion-panel/list-expansion-panel.module';
+import { DeactivateAccountPopupModule } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.module';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -28,6 +29,7 @@ const appModules = [
   ListExpansionPanelModule,
   SharedModule,
   RegistrationFormModule,
+  DeactivateAccountPopupModule,
 ];
 @NgModule({
   declarations: [DoctorsComponent, DoctorEditComponent],

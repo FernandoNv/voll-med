@@ -1,0 +1,43 @@
+<div class="app-deactivate-account-popup">
+  <div class="icon-account-area">
+    <div class="icon-account">
+      <fa-icon
+        [styles]="{
+          stroke: 'white',
+          color: '#0b3b60',
+          'stroke-width': '24px',
+          'stroke-dasharray': '100,100'
+        }"
+        [icon]="userIcon"
+        size="3x"
+      ></fa-icon>
+    </div>
+  </div>
+  <h2 mat-dialog-title class="title">Deseja desativar este perfil?</h2>
+  <div class="information-person">
+    <app-information
+      [title]="userName"
+      [content]="userInformation"
+    ></app-information>
+  </div>
+  <mat-dialog-content class="information-content">
+    <p>
+      Ao desativar este perfil, suas informações ficarão desabilitadas para
+      pesquisas e futuros agendamentos. Certifique-se que não há consultas
+      agendadas, caso tenha, a desativação não poderá ser concluída.
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions-area">
+    <button mat-flat-button class="btn" type="button">
+      Desativar este perfil
+    </button>
+    <button
+      mat-stroked-button
+      mat-dialog-close
+      class="outline-button"
+      type="button"
+    >
+      Cancelar
+    </button>
+  </mat-dialog-actions>
+</div>
