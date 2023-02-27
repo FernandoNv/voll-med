@@ -32,9 +32,13 @@ const appModules = [
   RegistrationFormModule,
   DeactivateAccountPopupModule,
 ];
-const appComponents = [DoctorsComponent, EditDoctorComponent];
+const appComponents = [
+  DoctorsComponent,
+  EditDoctorComponent,
+  NewDoctorComponent,
+];
 @NgModule({
-  declarations: [...appComponents, NewDoctorComponent],
+  declarations: [...appComponents],
   imports: [...ngModules, ...matModules, ...appModules],
   providers: [PhonePipe, CepPipe],
 })

@@ -1,7 +1,8 @@
 import { IDoctor } from 'src/app/pages/doctors/model/doctor';
+import { IPatient } from 'src/app/pages/patients/model/patient';
 
 export interface IPageable {
-  content?: IDoctor[] | null;
+  content?: IDoctor[] | IPatient[] | null;
   pageable: IPageable;
   last: boolean;
   totalPages: number;

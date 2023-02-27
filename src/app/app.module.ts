@@ -16,36 +16,43 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { DeactivateAccountPopupService } from './shared/components/deactivate-account-popup/deactivate-account-popup.service';
+import { PhonePipe } from './shared/pipes/phone.pipe';
+
+const ngModules = [
+  BrowserModule,
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  HttpClientModule,
+];
+const appModules = [
+  SplashScreenModule,
+  SignInAndSignUpModule,
+  HomeModule,
+  LayoutModule,
+];
+const matModules = [MatDialogModule];
+const providers = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthenticationInterceptor,
+    multi: true,
+  },
+  {
+    provide: MAT_DIALOG_DATA,
+    useValue: {},
+  },
+  {
+    provide: MatDialogRef,
+    useValue: {},
+  },
+  DeactivateAccountPopupService,
+  PhonePipe,
+];
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SplashScreenModule,
-    SignInAndSignUpModule,
-    HomeModule,
-    LayoutModule,
-    MatDialogModule,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthenticationInterceptor,
-      multi: true,
-    },
-    {
-      provide: MAT_DIALOG_DATA,
-      useValue: {},
-    },
-    {
-      provide: MatDialogRef,
-      useValue: {},
-    },
-    DeactivateAccountPopupService,
-  ],
+  imports: [...ngModules, appModules, matModules],
+  providers: [...providers],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

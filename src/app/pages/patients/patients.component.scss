@@ -1,0 +1,22 @@
+.app-patients {
+  @apply h-full container;
+
+  .spinner-area {
+    @apply h-full flex flex-col items-center justify-center;
+  }
+
+  .actions-area {
+    @apply flex justify-center flex-row h-auto pt-12 pb-6;
+
+    button {
+      @apply text-base font-bold mb-3;
+      padding: 24px !important;
+      background-color: #0b3b60 !important;
+      color: #fff;
+    }
+  }
+
+  .no-content-area {
+    @apply p-4 text-slate-600;
+  }
+}

@@ -1,1 +1,26 @@
-<p>patients works!</p>
+<div class="app-patients">
+  <div class="spinner-area" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+  <span *ngIf="!isLoading">
+    <div *ngIf="items$ | async as items">
+      <div *ngIf="items.length > 0; else noItems">
+        <app-list-expansion-panel
+          [items]="items"
+          (edit-button-clicked)="onEditButtonClicked($event)"
+          (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
+        ></app-list-expansion-panel>
+      </div>
+      <div class="actions-area">
+        <button mat-flat-button [routerLink]="['/patients/new']">
+          Cadastrar novo perfil
+        </button>
+      </div>
+    </div>
+    <ng-template #noItems>
+      <div class="no-content-area">
+        <p>Sem pacientes cadastrados...</p>
+      </div>
+    </ng-template>
+  </span>
+</div>
