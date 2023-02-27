@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { delay, map, Observable, retry, shareReplay, Subject } from 'rxjs';
 import { IPageable } from 'src/app/shared/models/pageable';
 import { environment } from 'src/environments/environment';
-import { IDoctor, IUpdateDoctor } from './model/doctor';
+import { IDoctor, INewDoctor, IUpdateDoctor } from './model/doctor';
 
 const API = environment.apiUrl;
 
@@ -32,6 +32,10 @@ export class DoctorsService {
 
   public loading(): Observable<boolean> {
     return this.loadingSubject$.asObservable();
+  }
+
+  public newDoctor(doctor: INewDoctor): Observable<IDoctor> {
+    return this.httpClient.post<IDoctor>(this.baseUrl, doctor);
   }
 
   public getDoctorById(id: number): Observable<IDoctor> {

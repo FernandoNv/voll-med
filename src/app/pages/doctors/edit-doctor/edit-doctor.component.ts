@@ -13,11 +13,11 @@ import { DeactivateAccountPopupService } from 'src/app/shared/components/deactiv
 import { IDialogData } from 'src/app/shared/models/dialog-data';
 
 @Component({
-  selector: 'app-doctor-edit',
-  templateUrl: './doctor-edit.component.html',
-  styleUrls: ['./doctor-edit.component.scss'],
+  selector: 'app-edit-doctor',
+  templateUrl: './edit-doctor.component.html',
+  styleUrls: ['./edit-doctor.component.scss'],
 })
-export class DoctorEditComponent {
+export class EditDoctorComponent {
   public doctor$!: Observable<IDoctor>;
   public success!: boolean;
   public message!: string;

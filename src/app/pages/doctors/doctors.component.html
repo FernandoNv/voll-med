@@ -11,6 +11,11 @@
           (deactivate-button-clicked)="onDeactivateButtonClicked($event)"
         ></app-list-expansion-panel>
       </div>
+      <div class="actions-area">
+        <button mat-flat-button [routerLink]="['/doctors/new']">
+          Cadastrar novo perfil
+        </button>
+      </div>
     </div>
     <ng-template #noItems>
       <div class="no-content-area">

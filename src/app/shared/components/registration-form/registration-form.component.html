@@ -24,7 +24,14 @@
         <span class="spacer"></span>
         <mat-form-field class="input-40" appearance="outline">
           <mat-label>CRM</mat-label>
-          <input matInput type="text" formControlName="crm" required />
+          <input
+            minlength="4"
+            maxlength="6"
+            matInput
+            type="text"
+            formControlName="crm"
+            required
+          />
         </mat-form-field>
       </div>
       <mat-form-field
@@ -47,6 +54,7 @@
         <input
           matInput
           type="text"
+          maxlength="15"
           formControlName="telefone"
           [value]="telefone?.value | phone"
           required
@@ -108,7 +116,8 @@
         [ngClass]="registrationForm.invalid ? '' : 'btn-submit'"
         [disabled]="registrationForm.invalid"
       >
-        Concluir edição
+        <span *ngIf="update"> Concluir edição </span>
+        <span *ngIf="!update"> Cadastrar </span>
       </button>
       <button
         mat-stroked-button

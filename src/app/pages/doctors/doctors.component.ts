@@ -9,7 +9,6 @@ import {
   take,
   takeUntil,
 } from 'rxjs';
-import { DeactivateAccountPopupComponent } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.component';
 import { DeactivateAccountPopupService } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.service';
 import { IItem } from 'src/app/shared/components/list-expansion-panel/list-expansion-panel.component';
 import { IDialogData } from 'src/app/shared/models/dialog-data';
@@ -70,7 +69,7 @@ export class DoctorsComponent implements OnInit, OnDestroy {
   }
 
   public onEditButtonClicked(idDoctor: number): void {
-    this.router.navigate(['/doctors/', idDoctor]);
+    this.router.navigate(['/doctors/edit', idDoctor]);
   }
 
   public onDeactivateButtonClicked(idDoctor: number): void {

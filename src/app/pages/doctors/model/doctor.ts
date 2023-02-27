@@ -17,6 +17,15 @@ export interface IUpdateDoctor {
   endereco: IEndereco;
 }
 
+export interface INewDoctor {
+  nome: string;
+  email: string;
+  telefone: string;
+  crm: string;
+  especialidade: IEspecialidade;
+  endereco: IEndereco;
+}
+
 export enum IEspecialidade {
   ORTOPEDIA = 'Ortopedia',
   CARDIOLOGIA = 'Cardiologia',
