@@ -1,9 +1,9 @@
 export interface IRegistrationFormInputValues {
-  nome: string;
   crm?: string;
   cpf?: string;
+  especialidade?: string;
+  nome: string;
   email: string;
-  especialidade: string;
   telefone: string;
   logradouro: string;
   numero?: string;

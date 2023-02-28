@@ -1,0 +1,9 @@
+<div class="app-patient-edit">
+  <app-registration-form
+    *ngIf="patient$ | async as patient"
+    [form-options]="buildFormOptions(patient)"
+    [update]="true"
+    (form-values-emitter)="onSubmit($event)"
+    (deactivate-account-emitter)="onDeactivateButtonClicked()"
+  ></app-registration-form>
+</div>

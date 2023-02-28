@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NewPatientComponent } from './new-patient/new-patient.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -31,7 +32,11 @@ const appModules = [
   RegistrationFormModule,
   DeactivateAccountPopupModule,
 ];
-const appComponents = [PatientsComponent, NewPatientComponent];
+const appComponents = [
+  PatientsComponent,
+  NewPatientComponent,
+  EditPatientComponent,
+];
 @NgModule({
   declarations: [...appComponents],
   imports: [...ngModules, ...matModules, ...appModules],

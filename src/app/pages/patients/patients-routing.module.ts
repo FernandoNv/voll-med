@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { PatientsComponent } from './patients.component';
 
@@ -13,7 +14,12 @@ const routes: Routes = [
   {
     path: 'new',
     component: NewPatientComponent,
-    title: 'Cadastrar Paciente',
+    title: 'Cadastrar',
+  },
+  {
+    path: 'edit/:id',
+    component: EditPatientComponent,
+    title: 'Editar',
   },
 ];
 
