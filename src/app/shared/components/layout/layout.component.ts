@@ -1,10 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivationStart,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
+import { ActivationStart, NavigationEnd, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from 'src/app/auth/user.service';
 import { Location } from '@angular/common';
@@ -26,6 +21,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   public showBackButton: boolean = true;
   public showHeader: boolean = true;
   public itemsMenu: IItemsMenu[] = [
+    { path: '/', description: 'Início' },
     { path: '/doctors', description: 'Médicos' },
     { path: '/patients', description: 'Pacientes' },
     { path: '/appointments', description: 'Consultas' },
@@ -35,7 +31,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private location: Location
   ) {}
@@ -74,7 +69,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.userService
       .getUser()
       .pipe(takeUntil(this.destroySubject$))
-      .subscribe((next) => {
+      .subscribe((_) => {
         this.router.navigate(['../sign-in']);
       });
   }

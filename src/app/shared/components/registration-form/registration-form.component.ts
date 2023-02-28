@@ -123,7 +123,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           ? [
               Validators.required,
               Validators.minLength(11),
-              Validators.maxLength(15),
+              Validators.maxLength(14),
             ]
           : undefined,
       ],
@@ -131,7 +131,12 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         '',
         [Validators.required, Validators.email, Validators.maxLength(100)],
       ],
-      especialidade: ['', [Validators.required, Validators.maxLength(100)]],
+      especialidade: [
+        '',
+        this.formOptions.type === 'doctor'
+          ? [Validators.required, Validators.maxLength(100)]
+          : undefined,
+      ],
       telefone: ['', [Validators.required, Validators.maxLength(15)]],
       logradouro: ['', [Validators.required, Validators.required]],
       numero: ['', [Validators.maxLength(20)]],

@@ -4,7 +4,7 @@ import { delay, map, Observable, retry, shareReplay, Subject } from 'rxjs';
 import { IPageable } from 'src/app/shared/models/pageable';
 import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
 import { environment } from 'src/environments/environment';
-import { IPatient, IUpdatePatient } from './model/patient';
+import { INewPatient, IPatient, IUpdatePatient } from './model/patient';
 
 const API = environment.apiUrl;
 
@@ -33,6 +33,10 @@ export class PatientsService {
     observable.subscribe(() => this.loadingSubject$.next(false));
 
     return observable;
+  }
+
+  newPatient(newPatient: INewPatient): Observable<IPatient> {
+    return this.httpClient.post<IPatient>(this.baseUrl, newPatient);
   }
 
   public updateById(updateValues: IUpdatePatient) {

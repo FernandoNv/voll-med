@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { NewPatientComponent } from './new-patient/new-patient.component';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -30,8 +31,7 @@ const appModules = [
   RegistrationFormModule,
   DeactivateAccountPopupModule,
 ];
-const appComponents = [PatientsComponent];
-
+const appComponents = [PatientsComponent, NewPatientComponent];
 @NgModule({
   declarations: [...appComponents],
   imports: [...ngModules, ...matModules, ...appModules],
