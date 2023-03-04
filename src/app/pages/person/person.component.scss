@@ -1,0 +1,18 @@
+.app-person {
+  @apply h-full w-full;
+
+  .app-spinner-area {
+    @apply h-full flex flex-col items-center justify-center;
+  }
+
+  .app-container {
+    @apply h-full w-full p-4 flex items-center justify-center;
+
+    .app-card {
+      @apply px-4 py-8 flex justify-center items-center text-center;
+      p {
+        @apply py-2;
+      }
+    }
+  }
+}

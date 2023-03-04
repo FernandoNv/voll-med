@@ -39,6 +39,11 @@ const routes: Routes = [
             (m) => m.AppointmentsModule
           ),
       },
+      {
+        path: 'person',
+        loadChildren: () =>
+          import('./pages/person/person.module').then((m) => m.PersonModule),
+      },
     ],
     canActivateChild: [AuthenticationGuard],
     data: { showHeader: true },

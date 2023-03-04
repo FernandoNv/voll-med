@@ -25,7 +25,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     { path: '/doctors', description: 'Médicos' },
     { path: '/patients', description: 'Pacientes' },
     { path: '/appointments', description: 'Consultas' },
-    { path: '/user', description: 'Minha conta' },
+    { path: '/person', description: 'Minha conta' },
     { description: 'Sair' },
   ];
 
