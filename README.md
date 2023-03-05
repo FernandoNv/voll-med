@@ -6,7 +6,7 @@ Projeto criado para consumir a API da VollMed
 | --------------------- | ------------------------------------------------------------------------------------- |
 | :sparkles: Nome       | **VollMed**                                                                           |
 | :label: Tecnologias   | java, angular, angular-material, html, scss, css, typescript, javascript, tailwindcss |
-| :rocket: URL          | https://github.com/FernandoNv/voll-med                                                |
+| :rocket: URL          | https://fernandonv.github.io/voll-med                                                 |
 | :fire: Desafio        |                                                                                       |
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
