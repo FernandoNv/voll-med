@@ -1,8 +1,0 @@
-.app-sign-in {
-  .input-container mat-form-field + mat-form-field {
-    margin-left: 8px;
-  }
-  .msg-error {
-    @apply text-red-600 w-full flex justify-center;
-  }
-}
