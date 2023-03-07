@@ -30,6 +30,7 @@ import {
   UFs,
 } from '../../models/registration-form';
 import { CepPipe } from '../../pipes/cep.pipe';
+import { CpfPipe } from '../../pipes/cpf.pipe';
 import { PhonePipe } from '../../pipes/phone.pipe';
 import { AddressService } from '../../services/address.service';
 
@@ -60,9 +61,10 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private addressService: AddressService,
+    private location: Location,
     private phonePipe: PhonePipe,
     private cepPipe: CepPipe,
-    private location: Location
+    private cpfPIpe: CpfPipe
   ) {}
 
   public ngOnInit(): void {
@@ -87,11 +89,19 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     if (formValues.complemento === '') {
       formValues.complemento = undefined;
     }
+    if (this.formOptions.type === 'patient') {
+      formValues.cpf = this.cpfPIpe.removeTransformations(formValues.cpf);
+      formValues.crm = undefined;
+      formValues.especialidade = undefined;
+    }
+    if (this.formOptions.type === 'doctor') {
+      formValues.cpf = undefined;
+    }
 
     formValues.cep = this.cepPipe.removeTransformations(formValues.cep);
     //prettier-ignore
     formValues.telefone = this.phonePipe.removeTransformations(formValues.telefone);
-    //console.log('valid values', formValues);
+    // console.log('valid values', formValues);
 
     this.formValuesEmitter.emit(formValues);
   }
@@ -159,7 +169,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.registrationForm.patchValue({
       nome: inputsValues?.nome ?? '',
       crm: inputsValues?.crm,
-      cpf: inputsValues?.cpf,
+      cpf: this.cpfPIpe.transform(inputsValues?.cpf ?? ''),
       email: inputsValues?.email,
       especialidade: inputsValues?.especialidade,
       telefone: this.phonePipe.transform(inputsValues?.telefone ?? ''),

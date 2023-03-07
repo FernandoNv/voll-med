@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  filter,
   map,
   Observable,
   retry,
@@ -31,6 +32,7 @@ export class PersonService {
     this.userService
       .getUser()
       .pipe(
+        filter((user) => user.username !== undefined),
         switchMap((user) => {
           const url = `${this.baseUrl}/${user.username}`;
           return httpClient.get<IPerson>(url);

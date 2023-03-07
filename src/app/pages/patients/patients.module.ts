@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { CpfPipe } from 'src/app/shared/pipes/cpf.pipe';
 
 const matModules = [
   MatProgressSpinnerModule,
@@ -37,9 +38,10 @@ const appComponents = [
   NewPatientComponent,
   EditPatientComponent,
 ];
+const appPipes = [PhonePipe, CepPipe, CpfPipe];
 @NgModule({
   declarations: [...appComponents],
   imports: [...ngModules, ...matModules, ...appModules],
-  providers: [PhonePipe, CepPipe],
+  providers: [...appPipes],
 })
 export class PatientsModule {}

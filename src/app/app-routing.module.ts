@@ -46,19 +46,16 @@ const routes: Routes = [
       },
     ],
     canActivateChild: [AuthenticationGuard],
-    data: { showHeader: true },
   },
   {
     path: 'sign-in',
     component: SignInComponent,
     canMatch: [SignInGuard],
-    data: { showHeader: false },
     title: 'Entrar',
   },
   {
     path: '**',
     component: NotFoundComponent,
-    data: { showHeader: true },
   },
 ];
 

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CepPipe } from '../../pipes/cep.pipe';
 import { PhonePipe } from '../../pipes/phone.pipe';
 import { SharedModule } from '../../shared.module';
+import { CpfPipe } from '../../pipes/cpf.pipe';
 
 const matModules = [
   MatFormFieldModule,
@@ -19,11 +20,11 @@ const matModules = [
 
 const ngModules = [CommonModule, ReactiveFormsModule];
 const appModules = [SharedModule];
-
+const appPipes = [PhonePipe, CepPipe, CpfPipe];
 @NgModule({
   declarations: [RegistrationFormComponent],
   imports: [...ngModules, ...matModules, ...appModules],
   exports: [RegistrationFormComponent],
-  providers: [PhonePipe, CepPipe],
+  providers: [...appPipes],
 })
 export class RegistrationFormModule {}

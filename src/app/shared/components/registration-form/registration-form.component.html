@@ -47,6 +47,7 @@
           matInput
           type="text"
           formControlName="cpf"
+          [value]="cpf?.value | cpf"
           required
         />
       </mat-form-field>

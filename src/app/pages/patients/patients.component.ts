@@ -12,6 +12,7 @@ import {
 import { DeactivateAccountPopupService } from 'src/app/shared/components/deactivate-account-popup/deactivate-account-popup.service';
 import { IItem } from 'src/app/shared/components/list-expansion-panel/list-expansion-panel.component';
 import { IDialogData } from 'src/app/shared/models/dialog-data';
+import { CpfPipe } from 'src/app/shared/pipes/cpf.pipe';
 import { IPatient } from './model/patient';
 import { PatientsService } from './patients.service';
 
@@ -30,7 +31,8 @@ export class PatientsComponent implements OnInit, OnDestroy {
   constructor(
     private patientsService: PatientsService,
     private router: Router,
-    private deactivateAccountPopupService: DeactivateAccountPopupService
+    private deactivateAccountPopupService: DeactivateAccountPopupService,
+    private cpfPipe: CpfPipe
   ) {
     this.patientsService
       .loading()
@@ -61,7 +63,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     const list = patients.map((item) => ({
       id: item.id,
       title: item.nome,
-      description: `${item.cpf}`,
+      description: `${this.cpfPipe.transform(item.cpf)}`,
       content: [item.email]
     })) as IItem[];
 
@@ -76,6 +78,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
     const modalOpen$ = this.patientsService.getPatientById(idPatient).pipe(
       take(1),
       switchMap((patient) => {
+        patient.cpf = this.cpfPipe.transform(patient.cpf);
         const data: IDialogData = {
           informationName: patient.nome,
           informationText: this.patientsService.formatTextModal(patient),

@@ -1,5 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivationStart, NavigationEnd, Router } from '@angular/router';
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ActivationStart,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from 'src/app/auth/user.service';
 import { Location } from '@angular/common';
@@ -14,7 +25,7 @@ interface IItemsMenu {
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
   private destroySubject$: Subject<boolean> = new Subject<boolean>();
 
   public title: string = '';
@@ -50,7 +61,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
           // prettier-ignore
           this.title = newTitle ? (newTitle as string) : this.title;
           this.title = this.title !== 'Início' ? this.title : '';
-          this.showHeader = data.snapshot.data['showHeader'];
+          //console.log(this.title);
+          this.showHeader = this.title != 'Entrar';
+          //console.log(this.showHeader);
         }
       });
   }
@@ -64,13 +77,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.destroySubject$.complete();
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+
   public logout(): void {
     this.userService.signOut();
-    this.userService
-      .getUser()
-      .pipe(takeUntil(this.destroySubject$))
-      .subscribe((_) => {
-        this.router.navigate(['../sign-in']);
-      });
+    this.router.navigate(['../sign-in']);
   }
 }
