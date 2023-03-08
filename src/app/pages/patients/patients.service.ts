@@ -1,6 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, retry, shareReplay, Subject } from 'rxjs';
+import { AbstractControl } from '@angular/forms';
+import {
+  delay,
+  first,
+  map,
+  Observable,
+  retry,
+  shareReplay,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { IPageable } from 'src/app/shared/models/pageable';
 import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
 import { environment } from 'src/environments/environment';
@@ -35,7 +45,7 @@ export class PatientsService {
     return observable;
   }
 
-  newPatient(newPatient: INewPatient): Observable<IPatient> {
+  public newPatient(newPatient: INewPatient): Observable<IPatient> {
     return this.httpClient.post<IPatient>(this.baseUrl, newPatient);
   }
 
@@ -60,5 +70,10 @@ export class PatientsService {
     ];
 
     return arrText;
+  }
+
+  public exist(value: string, type: 'email' | 'cpf') {
+    const url = `${this.baseUrl}/existe?tipo=${type}&${type}=${value}`;
+    return this.httpClient.get<boolean>(url);
   }
 }

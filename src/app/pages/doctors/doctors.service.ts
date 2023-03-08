@@ -62,4 +62,9 @@ export class DoctorsService {
 
     return arrText;
   }
+
+  public exist(value: string, type: 'email' | 'crm') {
+    const url = `${this.baseUrl}/existe?tipo=${type}&${type}=${value}`;
+    return this.httpClient.get<boolean>(url);
+  }
 }

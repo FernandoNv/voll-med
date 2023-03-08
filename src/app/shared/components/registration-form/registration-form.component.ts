@@ -23,7 +23,9 @@ import {
   switchMap,
   takeUntil,
 } from 'rxjs';
+import { DoctorsService } from 'src/app/pages/doctors/doctors.service';
 import { IEspecialidade } from 'src/app/pages/doctors/model/doctor';
+import { PatientsService } from 'src/app/pages/patients/patients.service';
 import {
   IRegistrationFormInputValues,
   IRegistrationFormOption,
@@ -33,6 +35,9 @@ import { CepPipe } from '../../pipes/cep.pipe';
 import { CpfPipe } from '../../pipes/cpf.pipe';
 import { PhonePipe } from '../../pipes/phone.pipe';
 import { AddressService } from '../../services/address.service';
+import { CpfValidator } from './validators/cpf.validator';
+import { CrmValidator } from './validators/crm.validator';
+import { EmailValidator } from './validators/email.validator';
 
 @Component({
   selector: 'app-registration-form',
@@ -61,10 +66,12 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private addressService: AddressService,
+    private patientsService: PatientsService,
+    private doctorsService: DoctorsService,
     private location: Location,
+    private cpfPIpe: CpfPipe,
     private phonePipe: PhonePipe,
-    private cepPipe: CepPipe,
-    private cpfPIpe: CpfPipe
+    private cepPipe: CepPipe
   ) {}
 
   public ngOnInit(): void {
@@ -80,30 +87,34 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.destroySubject$.complete();
   }
 
-  public onSubmit() {
-    //prettier-ignore
-    const formValues = this.registrationForm.getRawValue() as IRegistrationFormInputValues;
-    if (formValues.numero === '') {
-      formValues.numero = undefined;
-    }
-    if (formValues.complemento === '') {
-      formValues.complemento = undefined;
-    }
-    if (this.formOptions.type === 'patient') {
-      formValues.cpf = this.cpfPIpe.removeTransformations(formValues.cpf);
-      formValues.crm = undefined;
-      formValues.especialidade = undefined;
-    }
-    if (this.formOptions.type === 'doctor') {
-      formValues.cpf = undefined;
-    }
+  public onSubmit(): void {
+    if (this.registrationForm.valid) {
+      //prettier-ignore
+      const formValues = this.registrationForm.getRawValue() as IRegistrationFormInputValues;
+      if (formValues.numero === '') {
+        formValues.numero = undefined;
+      }
+      if (formValues.complemento === '') {
+        formValues.complemento = undefined;
+      }
+      if (this.formOptions.type === 'patient') {
+        formValues.cpf = this.cpfPIpe.removeTransformations(formValues.cpf);
+        formValues.crm = undefined;
+        formValues.especialidade = undefined;
+      }
+      if (this.formOptions.type === 'doctor') {
+        formValues.cpf = undefined;
+      }
 
-    formValues.cep = this.cepPipe.removeTransformations(formValues.cep);
-    //prettier-ignore
-    formValues.telefone = this.phonePipe.removeTransformations(formValues.telefone);
-    // console.log('valid values', formValues);
+      formValues.cep = this.cepPipe.removeTransformations(formValues.cep);
+      //prettier-ignore
+      formValues.telefone = this.phonePipe.removeTransformations(formValues.telefone);
+      // console.log('valid values', formValues);
 
-    this.formValuesEmitter.emit(formValues);
+      this.formValuesEmitter.emit(formValues);
+    } else {
+      this.validateAllFormFields(this.registrationForm);
+    }
   }
 
   public onDeactivateClicked(): void {
@@ -113,40 +124,30 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   public onCancelClicked(): void {
     this.location.back();
   }
-
-  private initForm() {
+  private initForm(): void {
     this.registrationForm = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.maxLength(100)]],
       crm: [
         '',
-        this.formOptions.type === 'doctor'
-          ? [
-              Validators.required,
-              Validators.minLength(4),
-              Validators.maxLength(6),
-            ]
-          : undefined,
+        [Validators.required, Validators.minLength(4), Validators.maxLength(6)],
+        [CrmValidator.validator(this.doctorsService)],
       ],
       cpf: [
         '',
-        this.formOptions.type === 'patient'
-          ? [
-              Validators.required,
-              Validators.minLength(11),
-              Validators.maxLength(14),
-            ]
-          : undefined,
+        [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(14),
+          CpfValidator.syncValidator(this.cpfPIpe),
+        ],
+        [CpfValidator.asyncValidator(this.patientsService, this.cpfPIpe)],
       ],
       email: [
         '',
         [Validators.required, Validators.email, Validators.maxLength(100)],
+        [EmailValidator.validator(this.patientsService)],
       ],
-      especialidade: [
-        '',
-        this.formOptions.type === 'doctor'
-          ? [Validators.required, Validators.maxLength(100)]
-          : undefined,
-      ],
+      especialidade: ['', [Validators.required, Validators.maxLength(100)]],
       telefone: ['', [Validators.required, Validators.maxLength(15)]],
       logradouro: ['', [Validators.required, Validators.required]],
       numero: ['', [Validators.maxLength(20)]],
@@ -162,9 +163,24 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       ],
       bairro: ['', [Validators.required, Validators.maxLength(100)]],
     });
+
+    if (this.formOptions.type === 'patient') {
+      this.registrationForm.get('crm')?.clearValidators();
+      this.registrationForm.get('crm')?.clearAsyncValidators();
+      this.registrationForm.get('especialidade')?.clearValidators();
+    }
+
+    if (this.formOptions.type === 'doctor') {
+      this.registrationForm.get('cpf')?.clearValidators();
+      this.registrationForm.get('cpf')?.clearAsyncValidators();
+      this.registrationForm.get('email')?.clearAsyncValidators();
+      this.registrationForm
+        .get('email')
+        ?.setAsyncValidators(EmailValidator.validator(this.doctorsService));
+    }
   }
 
-  private updateFormValues() {
+  private updateFormValues(): void {
     const inputsValues = this.formOptions.inputValues;
     this.registrationForm.patchValue({
       nome: inputsValues?.nome ?? '',
@@ -188,7 +204,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.registrationForm.get('especialidade')?.disable();
   }
 
-  private initEventInputCep() {
+  private initEventInputCep(): void {
     const cepFormControl = this.registrationForm.get('cep') as FormControl;
     cepFormControl.valueChanges
       .pipe(
@@ -209,6 +225,18 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           bairro: next.bairro,
         });
       });
+  }
+
+  private validateAllFormFields(formGroup: FormGroup): void {
+    //https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
   public get nome() {

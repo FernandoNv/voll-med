@@ -7,7 +7,7 @@
         <mat-label>Nome completo</mat-label>
         <input matInput type="text" formControlName="nome" required />
       </mat-form-field>
-      <div *ngIf="formOptions.type === 'doctor'" class="inputs">
+      <div *ngIf="formOptions.type === 'doctor'" class="inputs pb-3">
         <mat-form-field class="input-60 pr-3" appearance="outline">
           <mat-label>Especialidade</mat-label>
           <mat-select
@@ -33,11 +33,14 @@
             formControlName="crm"
             required
           />
+          <mat-error *ngIf="crm?.hasError('crmTaken')"
+            >CRM já cadastrado</mat-error
+          >
         </mat-form-field>
       </div>
       <mat-form-field
         *ngIf="formOptions.type === 'patient'"
-        class="input-full"
+        class="input-full pb-3"
         appearance="outline"
       >
         <mat-label>CPF</mat-label>
@@ -50,13 +53,20 @@
           [value]="cpf?.value | cpf"
           required
         />
+        <mat-error *ngIf="cpf?.hasError('cpfPattern')">CPF inválido</mat-error>
+        <mat-error *ngIf="cpf?.hasError('cpfTaken')"
+          >CPF já cadastrado</mat-error
+        >
       </mat-form-field>
     </fieldset>
     <fieldset class="input-area">
       <h3>Contatos</h3>
-      <mat-form-field class="input-full" appearance="outline">
+      <mat-form-field class="input-full pb-3" appearance="outline">
         <mat-label>E-mail</mat-label>
         <input matInput type="email" formControlName="email" required />
+        <mat-error *ngIf="email?.hasError('emailTaken')"
+          >Email já cadastrado</mat-error
+        >
       </mat-form-field>
       <mat-form-field class="input-full" appearance="outline">
         <mat-label>Telefone ou Celular</mat-label>
