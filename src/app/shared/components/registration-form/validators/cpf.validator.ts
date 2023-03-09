@@ -1,5 +1,5 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { AbstractControl } from '@angular/forms';
+import { delay, filter, first, map, switchMap } from 'rxjs/operators';
 import { PatientsService } from 'src/app/pages/patients/patients.service';
 import { CpfPipe } from 'src/app/shared/pipes/cpf.pipe';
 
@@ -10,7 +10,9 @@ export class CpfValidator {
   static asyncValidator(patientsService: PatientsService, cpfPIpe: CpfPipe) {
     return (control: AbstractControl) => {
       return control.valueChanges.pipe(
+        delay(400),
         map((cpf) => cpfPIpe.removeTransformations(cpf) ?? ''),
+        filter((cpf) => cpf.length >= 11),
         switchMap((cpf) => patientsService.exist(cpf, 'cpf')),
         map((cpfTaken) => (cpfTaken ? { cpfTaken: true } : null)),
         first()

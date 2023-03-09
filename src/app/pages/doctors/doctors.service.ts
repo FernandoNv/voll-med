@@ -21,7 +21,6 @@ export class DoctorsService {
     const observable = this.httpClient.get<IPageable>(this.baseUrl).pipe(
       retry(3),
       map((next) => next.content as IDoctor[]),
-      delay(500),
       shareReplay()
     );
 

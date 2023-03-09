@@ -16,6 +16,7 @@ export class EmailValidator {
   static validator(service: PatientsService | DoctorsService) {
     return (control: AbstractControl) => {
       return control.valueChanges.pipe(
+        delay(400),
         switchMap((email) => service.exist(email, 'email')),
         map((emailTaken) => (emailTaken ? { emailTaken: true } : null)),
         first()
