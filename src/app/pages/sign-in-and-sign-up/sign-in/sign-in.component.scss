@@ -5,4 +5,13 @@
   .msg-error {
     @apply text-red-600 w-full flex justify-center;
   }
+
+  button {
+    @apply text-base font-bold mb-3 w-full;
+    padding: 24px !important;
+  }
+  .btn-submit {
+    background-color: #0b3b60 !important;
+    color: #fff;
+  }
 }

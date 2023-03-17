@@ -41,10 +41,9 @@
     <div class="msg-error" *ngIf="wrongPassword">Senha inválida</div>
     <div class="py-8">
       <button
+        [ngClass]="loginFormGroup.invalid ? '' : 'btn-submit'"
         [disabled]="loginFormGroup.invalid"
-        class="w-full"
         mat-flat-button
-        color="primary"
       >
         Fazer Login
       </button>
