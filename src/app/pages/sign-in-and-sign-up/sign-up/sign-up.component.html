@@ -1,0 +1,95 @@
+<div class="app-sign-up">
+  <img class="py-4" width="56" src="assets/logo.svg" alt="Logo Voll Med" />
+  <h1>Crie a sua conta na Voll Med</h1>
+  <form class="app-form">
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input
+        matInput
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Ex: Fernando Vieira"
+        required
+      />
+    </mat-form-field>
+    <div class="w-full">
+      <mat-form-field class="w-8/12 pr-2" appearance="fill">
+        <mat-label>Data de nascimento</mat-label>
+        <input
+          required
+          matInput
+          [matDatepicker]="picker"
+          placeholder="EX: 01/12/1999"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="w-4/12" appearance="fill">
+        <mat-label>Gênero</mat-label>
+        <mat-select required>
+          <mat-option value="FEMININO">Feminino</mat-option>
+          <mat-option value="MASCULINO">Masculino</mat-option>
+          <mat-option value="OUTRO">Outro</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>E-mal</mat-label>
+      <input
+        matInput
+        type="email"
+        name="email"
+        placeholder="Ex: email@vollmed.com"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Digite a sua senha</mat-label>
+      <input
+        required
+        id="password"
+        name="password"
+        matInput
+        [type]="hidePassword ? 'password' : 'text'"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Esconder a senha'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Digite a senha novamente</mat-label>
+      <input required matInput [type]="hidePassword ? 'password' : 'text'" />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Esconder a senha'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="py-2 w-full">
+      <button mat-flat-button class="btn-submit">Cadastrar</button>
+    </div>
+    <div class="signin-link-area">
+      <a [routerLink]="['/sign-in']">Já tem cadastro? Faça o login</a>
+    </div>
+  </form>
+</div>

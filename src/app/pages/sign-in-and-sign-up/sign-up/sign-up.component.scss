@@ -1,28 +1,25 @@
 $blue-color: #0b3b60;
-.app-sign-in {
+.app-sign-up {
   @apply w-full h-full flex flex-col items-center justify-center;
-
   .app-form {
     @apply p-4 max-w-sm;
-    .msg-error {
-      @apply text-red-600 w-full flex justify-center;
-    }
 
     button {
       @apply text-base font-bold w-full;
     }
+    
     .btn-submit {
       background-color: $blue-color !important;
       color: #fff;
-      padding: 24px;
+      padding: 24px !important;
     }
 
     .invalid{
       opacity: 0.5;
     }
-    
-    .signup-link-area {
-      @apply underline w-full text-center;
+
+    .signin-link-area {
+      @apply w-full underline text-center;
       color: $blue-color;
     }
   }

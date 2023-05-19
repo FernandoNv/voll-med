@@ -5,6 +5,7 @@ import { SignInGuard } from './auth/sign-in.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SignInComponent } from './pages/sign-in-and-sign-up/sign-in/sign-in.component';
+import { SignUpComponent } from './pages/sign-in-and-sign-up/sign-up/sign-up.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,12 @@ const routes: Routes = [
     component: SignInComponent,
     canMatch: [SignInGuard],
     title: 'Entrar',
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    canMatch: [SignInGuard],
+    title: 'Cadastrar',
   },
   {
     path: '**',

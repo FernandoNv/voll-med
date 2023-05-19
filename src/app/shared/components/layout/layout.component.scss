@@ -12,7 +12,12 @@
 
   .content {
     @apply container mx-auto;
-    height: calc(100vh - 56px);
+    height: calc(100vh);
+  }
+
+  .margin-top {
+    height: calc(100vh - 56px) !important;
+    // margin-top: 56px !important;
   }
 }
 
@@ -22,17 +27,12 @@
       height: 64px;
     }
     .content {
-      height: calc(100vh - 64px);
+      height: calc(100vh);
+    }
+
+    .margin-top {
+      height: calc(100vh - 64px) !important;
+      // margin-top: 64px !important;
     }
   }
 }
-
-// .active {
-//   background-color: #0b3b60 !important;
-//   color: #fff !important;
-// }
-
-// ::ng-deep .mat-mdc-menu-content {
-//   background-color: red !important;
-//   padding: 0px !important;
-// }

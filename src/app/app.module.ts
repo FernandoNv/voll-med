@@ -17,6 +17,7 @@ import {
 } from '@angular/material/dialog';
 import { DeactivateAccountPopupService } from './shared/components/deactivate-account-popup/deactivate-account-popup.service';
 import { PhonePipe } from './shared/pipes/phone.pipe';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 const ngModules = [
   BrowserModule,
@@ -45,6 +46,7 @@ const providers = [
     provide: MatDialogRef,
     useValue: {},
   },
+  { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   DeactivateAccountPopupService,
   PhonePipe,
 ];

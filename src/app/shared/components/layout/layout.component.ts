@@ -29,8 +29,8 @@ export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
   private destroySubject$: Subject<boolean> = new Subject<boolean>();
 
   public title: string = '';
-  public showBackButton: boolean = true;
-  public showHeader: boolean = true;
+  public showBackButton: boolean = false;
+  public showHeader: boolean = false;
   public itemsMenu: IItemsMenu[] = [
     { path: '/', description: 'Início' },
     { path: '/doctors', description: 'Médicos' },
@@ -61,8 +61,8 @@ export class LayoutComponent implements OnInit, OnDestroy, OnChanges {
           // prettier-ignore
           this.title = newTitle ? (newTitle as string) : this.title;
           this.title = this.title !== 'Início' ? this.title : '';
-          //console.log(this.title);
-          this.showHeader = this.title != 'Entrar';
+          console.log(this.title);
+          this.showHeader = this.title !== 'Cadastrar' && this.title !== 'Entrar';
           //console.log(this.showHeader);
         }
       });

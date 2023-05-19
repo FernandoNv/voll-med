@@ -1,52 +1,52 @@
-<div class="app-sign-in flex flex-col h-screen items-center justify-center">
+<div class="app-sign-in">
   <img class="py-4" width="56" src="assets/logo.svg" alt="Logo Voll Med" />
-  <h2>Logar na Voll Med</h2>
-  <form [formGroup]="loginFormGroup" (ngSubmit)="signin()">
-    <div class="input-container">
-      <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Digite o seu usuário</mat-label>
-        <input
-          matInput
-          type="text"
-          id="username"
-          name="username"
-          formControlName="usernameFormControl"
-        />
-      </mat-form-field>
-    </div>
-    <div class="input-container">
-      <mat-form-field appearance="fill">
-        <mat-label>Digite a sua senha</mat-label>
-        <input
-          id="password"
-          name="password"
-          matInput
-          formControlName="passwordFormControl"
-          [type]="hidePassword ? 'password' : 'text'"
-        />
-        <button
-          type="button"
-          mat-icon-button
-          matSuffix
-          (click)="hidePassword = !hidePassword"
-          [attr.aria-label]="'Esconder a senha'"
-          [attr.aria-pressed]="hidePassword"
-        >
-          <mat-icon>{{
-            hidePassword ? "visibility_off" : "visibility"
-          }}</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-    <div class="msg-error" *ngIf="wrongPassword">Senha inválida</div>
-    <div class="py-8">
+  <h1>Logar na Voll Med</h1>
+  <form class="app-form" [formGroup]="loginFormGroup" (ngSubmit)="signin()">
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Digite o seu usuário</mat-label>
+      <input
+        matInput
+        type="text"
+        id="username"
+        name="username"
+        formControlName="usernameFormControl"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Digite a sua senha</mat-label>
+      <input
+        id="password"
+        name="password"
+        matInput
+        formControlName="passwordFormControl"
+        [type]="hidePassword ? 'password' : 'text'"
+      />
       <button
-        [ngClass]="loginFormGroup.invalid ? '' : 'btn-submit'"
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Esconder a senha'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="msg-error" *ngIf="wrongPassword">Senha inválida</div>
+    <div class="py-4 w-full">
+      <button
+        class="btn-submit"
+        [ngClass]="loginFormGroup.invalid ? 'invalid' : ''"
         [disabled]="loginFormGroup.invalid"
         mat-flat-button
       >
         Fazer Login
       </button>
+    </div>
+    <div class="signup-link-area">
+      <a [routerLink]="['/sign-up']">Criar uma nova conta</a>
     </div>
   </form>
 </div>

@@ -39,7 +39,7 @@
       </mat-menu>
     </mat-toolbar>
   </div>
-  <div class="content">
+  <div class="content" [ngClass]="showHeader ? 'margin-top' : ''">
     <ng-content></ng-content>
   </div>
 </div>
